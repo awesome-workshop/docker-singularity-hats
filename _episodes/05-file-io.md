@@ -5,9 +5,11 @@ exercises: 5
 questions:
 - "How do containers interact with my local file system?"
 objectives:
-- "First learning objective."
+- "Learn how to copy files to and from a container"
+- "Understand when and how to mount a file/volume inside a container"
 keypoints:
-- "First key point. Brief Answer to questions."
+- "Copy files to an from a container using `docker cp`"
+- "Mount a folder/file inside a container using `-v <host path>:<container path>`"
 ---
 
 # Copying
@@ -19,7 +21,7 @@ On your local host find a file that you want to transfer to the container and th
 touch io_example.txt
 # If on Mac need to do: chmod a+w io_example.txt
 echo "This was written on local host" > io_example.txt
-docker cp io_example.txt <NAME>:/home/docker/data/
+docker cp io_example.txt <NAME>:<remote path>
 ~~~
 {: .source}
 
@@ -34,7 +36,7 @@ echo "This was written inside Docker" >> io_example.txt
 {: .source}
 
 ~~~
-/home/docker/data
+<remote path>
 io_example.txt
 This was written on local host
 ~~~
@@ -43,7 +45,7 @@ This was written on local host
 and then on the local host copy the file out of the container
 
 ~~~bash
-docker cp <NAME>:/home/docker/data/io_example.txt .
+docker cp <NAME>:<remote path>/io_example.txt .
 ~~~
 {: .source}
 

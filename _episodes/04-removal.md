@@ -19,6 +19,8 @@ docker rm <CONTAINER NAME>
 ~~~
 {: .source}
 
+**Note:** A container must be stopped in order for it to be removed.
+
 > ## Remove old containers
 >
 > Start an instance of the tutorial container, exit it, and then remove it with
@@ -27,7 +29,7 @@ docker rm <CONTAINER NAME>
 > > ## Solution
 > >
 > > ~~~bash
-> > docker run matthewfeickert/intro-to-docker:latest
+> > docker run sl:latest
 > > docker ps -a
 > > docker rm <CONTAINER NAME>
 > > docker ps -a
@@ -107,7 +109,7 @@ docker rmi <IMAGE ID>
 > What is helpful is to have Docker detect and remove unwanted images and containers for you.
 > This can be done with `prune`, which depending on the context will remove different things.
 > - [`docker container prune`](https://docs.docker.com/engine/reference/commandline/container_prune/) removes all stopped containers, which is helpful to clean up forgotten stopped containers.
-> - [`docker image prune`](https://docs.docker.com/engine/reference/commandline/image_prune/) removes all unused or dangling images (images that do not have a tag). This is helpful for cleaning up after builds.
+> - [`docker image prune`](https://docs.docker.com/engine/reference/commandline/image_prune/) removes all unused or dangling images (images that do not have a tag). This is helpful for cleaning up after builds. It is similar to the more explicit command `docker rmi $(docker images -f "dangling=true" -q)`.
 > - [`docker system prune`](https://docs.docker.com/engine/reference/commandline/system_prune/) removes all stopped containers, dangling images, and dangling build caches. This is very helpful for cleaning up everything all at once.
 {: .callout}
 
