@@ -174,6 +174,16 @@ Modify the block below if there are any special requirements.
 </p>
 
 {% comment %}
+REFERENCES
+
+List the sources used to put this lesson together.
+{% endcomment %}
+<p id="references">
+  <strong>References:</strong>
+  Many of the modules were taken from the <a href="//hsf-training.github.io/hsf-training-docker/index.html">Introduction to Docker</a> (<a href="//awesome-workshop.github.io/intro-to-docker/">also</a>) tutorial and the <a href="//awesome-workshop.github.io/docker-cms/index.html">Software containers for CMSSW</a> tutorial.
+</p>
+
+{% comment %}
 ACCESSIBILITY
 
 Modify the block below if there are any barriers to accessibility or
@@ -227,28 +237,6 @@ Display the contact email address set in the configuration file.
   {% endif %}
   for more information.
 </p>
-
-{% comment %}
-WHO CAN ATTEND?
-
-If you would like to specify who can attend the workshop,
-you can use the section below.
-
-Move the 'endcomment' tag above the beginning of the following
-<p> tag to make this section visible.
-
-Edit the text to match who can attend the workshop. For instance:
-- This workshop is open to affiliates to ABC university.
-- This workshop is open to the public.
-- If you are interested in attending this workshop, contact me@example.com
-  for more information
-
-<p id="who-can-attend">
-    <strong>Who can attend?:</strong>
-    This workshop is open to ....
-</p>
-{% endcomment %}
-
 
 {% comment %}
 SETUP

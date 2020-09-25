@@ -15,7 +15,7 @@ To signup for Docker Hub, follow the instructions [here](https://hub.docker.com/
 Once you've got docker up and running, do the following docker image pulls in advance to save waiting during the tutorial:
 
 ~~~bash
-docker pull python:3.7-slim
+docker pull sl:latest
 docker pull sl:7
 docker pull aperloff/cms-cvmfs-docker:latest
 docker pull cmscloud/cc7-cvmfs

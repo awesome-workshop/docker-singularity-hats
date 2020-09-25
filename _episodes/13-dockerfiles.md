@@ -1,5 +1,5 @@
 ---
-title: "Writing Dockerfiles and Building Images"
+title: "Bonus: Writing Dockerfiles and Building Images"
 teaching: 20
 exercises: 10
 questions:
