@@ -19,11 +19,7 @@ The EP-SFT group provides a service that unpacks Docker images and makes them
 available via a dedicated CVMFS area. In the following, you will learn how to
 add your images to this area. Once you have your image(s) added to this area,
 these images will be automatically synchronised from the image registry
-to the CVMFS area within a few minutes whenever
-you create a new version of the image.
-
-We will continue with the `ZPeakAnalysis` example, but for demonstration
-purposes we will use an [example payload][payload-docker-cms].
+to the CVMFS area within a few minutes whenever you create a new version of the image.
 
 ## Exploring the CVMFS `unpacked.cern.ch` area
 
@@ -55,7 +51,7 @@ bin  cvmfs   environment  etc  lib   lost+found  mnt    pool  root  sbin  srv   
 This can be useful for investigating some internal details of the image.
 
 As mentioned above, the images are synchronised with the respective registry.
-However, you don't get to know when the synchronisation happened, but there
+However, you don't get to know when the synchronisation happened[^1], but there
 is an easy way to check by looking at the timestamp of the image directory:
 
 ~~~
@@ -94,6 +90,11 @@ tags, i.e. you can simply add
 and whenever you build an image with a new tag it will be synchronised
 to `/cvmfs/unpacked.cern.ch`.
 
+> ## Image removal
+> There is currently no automated ability to remove images from CVMFS. If you would like your image to be permanently removed, contact the developers or open a GitLab issue.
+> 
+{: .callout}
+
 ## Running Singularity using the `unpacked.cern.ch` area
 
 Running Singularity using the `unpacked.cern.ch` area is done using the
@@ -108,7 +109,7 @@ singularity shell -B /afs -B /eos -B /cvmfs /cvmfs/unpacked.cern.ch/gitlab-regis
 
 Now you should be in an interactive shell almost immediately without any
 image pulling or unpacking. One important thing to note is that for most
-CMS images the default username is `cmsusr`, and if you compiled your
+CMS images, the default username is `cmsusr`, and if you compiled your
 analysis code in the container, it will by default reside in
 `/home/cmsusr`:
 
@@ -135,29 +136,11 @@ we cannot write into the container file system with Singularity.
 We will have to change the `MyZPeak_cfg.py` file such that it writes
 out to a different path.
 
-> ## Challenge: Patch `MyZPeak_cfg.py` to write out to your EOS home
+> ## Note
 >
-> Or even better, use an environment variable to define this that if not set
-> defaults to `./`. Mind that you cannot change files in the container,
-> so the way to go is change the python config in the repository and
-> have a new image built that can then be used.
+> Mind that you cannot change files in the Singularity container.
 >
-{: .challenge}
-
-> ## Solution: Patch `MyZPeak_cfg.py` to write out to your EOS home
->
-> A possible solution could look like this
-> ~~~
-> import os
-> outPath = os.getenv("ANALYSIS_OUTDIR") + "/"
-> if not outPath:
->   outPath = "./"
-> process.TFileService = cms.Service("TFileService",
->                                    fileName = cms.string(outPath + 'myZPeak.root')
->                                    )
-> ~~~
-> {: .language-python}
-{: .solution}
+{: .callout}
 
 Commit these changes, push them, and your new image will show up on
 CVMFS within a few minutes. The new image has the tag `0950e980`.
@@ -177,16 +160,11 @@ ls -l /eos/user/${USER:0:1}/${USER}/myZPeak.root
 
 > ## Where to go from here?
 >
-> Knowing that you can build images on GitLab and have them synchronised to
-> the `unpacked.cern.ch` area, you now have the power to run reusable and
-> versioned stages of your analysis. While we have only run test jobs using
-> these containers, you can
-> [run them on the batch system][batchdocs-containers], i.e. your full analysis
-> in containers with effectively only advantages.
-The next step after this is to connect these stages
-> using workflows, which will be taught tomorrow.
+> Knowing that you can build images on you local machine, Docker Hub, GitHub, or GitLab and have them synchronised to the `unpacked.cern.ch` area, you now have the power to run reusable and versioned stages of your analysis. While we have only run test jobs using these containers, you can [run them on the batch system][batchdocs-containers], i.e. your full analysis in containers with effectively only advantages.
 >
 {: .testimonial}
+
+[^1]: You can figure it out by looking at the [Jenkins logs](https://lcgapp-services.cern.ch/cvmfs-jenkins/job/unpacked.cern.ch/).
 
 {% include links.md %}
 

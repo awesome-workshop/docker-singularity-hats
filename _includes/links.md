@@ -49,11 +49,13 @@
 [yaml]: http://yaml.org/
 [bootcamp-coc]: https://indico.cern.ch/event/854880/page/18570-code-of-conduct
 [docker-install]: https://docs.docker.com/install/
+[docker-hub]: https://hub.docker.com/
 [unpacked-sync]: https://gitlab.cern.ch/unpacked/sync
 [unpacked-sync-recipe]: https://gitlab.cern.ch/unpacked/sync/blob/master/recipe.yaml
 [cms-singularity]: http://cms-sw.github.io/singularity.html
 [batchdocs-containers]: https://batchdocs.web.cern.ch/containers/index.html
-[cms-containers]: https://gitlab.cern.ch/clange/cmssw-docker
+[cms-containers]: https://gitlab.cern.ch/cms-cloud/cmssw-docker
+[cms-cloud-gitlab]: https://gitlab.cern.ch/cms-cloud/cmssw-docker/container_registry
 [singularity-docs]: https://sylabs.io/docs/
 [intro-docker-lesson]: https://awesome-workshop.github.io/intro-to-docker/
 [docker-cmsopendata]: https://hub.docker.com/u/cmsopendata

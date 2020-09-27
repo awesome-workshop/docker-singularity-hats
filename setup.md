@@ -18,7 +18,8 @@ Once you've got docker up and running, do the following docker image pulls in ad
 docker pull sl:latest
 docker pull sl:7
 docker pull aperloff/cms-cvmfs-docker:latest
-docker pull cmscloud/cc7-cvmfs
+docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms
+docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cvmfs
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21-slc7_amd64_gcc700:2020-09-22-ef834977
 ~~~
 
@@ -27,6 +28,8 @@ Most of these images are relatively small (a few 100 MB at most). However, the l
 ## OSX specific setup
 
 Follow the direction to install [XQuartz](https://www.xquartz.org/). Once installed, start the program and navigate to XQuartz->Preferences->Security. Make sure that both the "Authenticate connections" and "Allow connections from network clients" checkboxes are selected. If you change any settings, you will need to restart XQuartz.
+
+<img src="../fig/XQuartz.png" alt="XQuartz" style="width:400px"> 
 
 ## Windows specific setup
 

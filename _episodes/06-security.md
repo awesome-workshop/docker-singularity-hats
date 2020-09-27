@@ -30,7 +30,7 @@ keypoints:
 
 Unless you're running in [rootless mode (experimental)][docker-docs-security-rootless], the Docker daemon must be run as the root user on the home machine. This means that is has significant privileges on the host machine. Be careful when mounting directories into the container. The container can then modify the host filesystem, which can cause issues if you add/delete to the wrong directory. Think `rm -rf /`.
 
-Some of this danger can be mitigated by limiting which directories can be bind mounted within the container. These settings are found in Preferences->Resources->File Sharing.
+Some of this danger can be mitigated by limiting which directories can be bind mounted within the container. These settings are found in *Preferences* -> *Resources* -> *File Sharing*.
 
 <img src="../fig/DockerFileSharing.png" alt="DockerFileSharing" style="width:800px">
 
@@ -42,11 +42,11 @@ By construction, Docker isolates each container in its own namespace. This means
 
 That said, the user can choose to specify public ports and link containers or the host. Take care when opening ports to your docker container. Open ports are the way by which an intruder can get into your system. Even if your host machine is locked down, the same may not be true of the remote machine. If you then open a port between the remote machine and the host, the intruder can get into your computer and your network via the remote machine.
 
-By default the Docker daemon will bind open ports to the ip address 0.0.0.0. To change this default address you can either use the daemon directly using the command `dockerd --ip <ip_address>` or by going to Preferences->Docker Engine and adding the line `"ip": "<ip_address>"`. It's a good practice to bind ports to the `localhost`, which is address `127.0.0.1`. This will prevent container ports from being bound to an arbitrary address.
+By default the Docker daemon will bind open ports to the ip address 0.0.0.0. To change this default address you can either use the daemon directly using the command `dockerd --ip <ip_address>` or by going to *Preferences* -> *Docker Engine* and adding the line `"ip": "<ip_address>"`. It's a good practice to bind ports to the `localhost`, which is address `127.0.0.1`. This will prevent container ports from being bound to an arbitrary address.
 
 <img src="../fig/DockerEngine.png" alt="DockerEngine" style="width:800px">
 
-# Container Users [^5]
+# Container users [^5]
 
 By default the user inside the container is `root`. This raises some serious security concerns. While having a `root` user inside the container is not necessarily bad, adding a non-root user inside the container can add a small level of protection, especially in production environments. Yes, often times the container user can break out and become `root`, but that is not a good excuse for abdicating our responsibility to secure the images we create.
 
@@ -58,7 +58,7 @@ Be wary of using a privileged container (i.e. using the `--privileged` flag). Th
 
 Unless it's necessary for your containerized application, it's probably not a good idea to run an ssh service inside the container in order to access it. As we've shown, there are better and more secure ways to do this. Running your own service inside a container means you will need to follow good security practices.
 
-# Base Image choice
+# Base image choice
 
 Not everyone will build a Docker image. However, for those of you that do it is important to keep in mind the capabilities and security of your chosen base image. Many of the systems we use at labs and universities are security hardened versions of commercial Linux distributions (i.e. [Scientific Linux][scientific-linux]). Often it is possible to use these specific Linux distributions as base images (i.e. [Official containers for Scientific Linux(SL)][docker-hub-sl]). Using one of these images is recommended as you will need to do far fewer manual modifications in order to secure your container.
 
@@ -67,7 +67,7 @@ If you're using a base image which has an unverified provenance, you may want to
 * verify that the image wasn't modified after its creation. You can use the SHA256 digest to do this.
 * scan for security vulnerabilities. There are tools to do this sort of static analysis, but that goes far beyond this document.
 
-# Fermilab Computing
+# Fermilab computing
 
 When on the Fermilab network we must follow the [Fermilab Policy on Computing][fnal-computing] at all times. This applies event to containers. If there is an activity which is restricted or prohibited on the host system, then in general it is likewise restricted or prohibited on the remote system. To be safe, any setting or configuration which applies to the host machine must also be set on the remote machine (i.e. ssh configuration parameters).
 

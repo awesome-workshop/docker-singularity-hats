@@ -10,8 +10,22 @@ objectives:
 keypoints:
 - "Singularity needs to be used on LXPLUS."
 - "CMS Computing provides a wrapper script to run CMSSW in different Linux environments (SLC5, SLC6, CC7, CC8)."
+- "The centrally supported way to run CMSSW in a container is using Singularity."
 - "To run your own container, you need to run Singularity manually."
 ---
+One thing that has not been covered in detail in the
+[introduction to Docker][intro-docker-lesson] is that containers do not
+necessarily have to be executed using Docker. There are several so-called
+container run-times that allow the execution of containers. CMS uses
+[Singularity][singularity-docs] for sample production, and
+[use of Singularity is also centrally supported and documented][cms-singularity].
+The main reason for that is that Singularity is popular in high-performance
+and high-throughput computing and does not require any root privileges.
+
+While executing images on LXPLUS and HTCondor is more practical with
+Singularity, running in GitLab CI is by default done using Docker. Since
+Singularity uses a proprietary image format, but supports reading and
+executing Docker images, building images is better done using Docker.
 
 The previous episode has given you an idea how complicated it can be
 to run containers with CVMFS access on your computer. However, at the
