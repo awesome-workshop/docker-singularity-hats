@@ -207,11 +207,11 @@ More information about this feature can be found in the images [GitHub README](h
 > > 
 > >     where:
 > >         -d            print the command being used to invoke the docker container (default: false)
-> >     -g            mount the global gitconfig file from the host (default: false)
+> >         -g            mount the global gitconfig file from the host (default: false)
 > >         -h            show this help text
 > >         -l  [LOCAL]   local path to mount in container (default: )
 > >         -m  [MOUNTS]  sets the mount points; space separate multiple points inside quotes (default: )
-> >     -n  [NAME]    make the container persistent (default: )
+> >         -n  [NAME]    make the container persistent (default: )
 > >         -r  [REMOTE]  remote path to mount in the container (default: /root/local_mount/)
 > >         -s            mount the .ssh folder (default: false)
 > >         -v            expose the ports needed to use a VNC viewer (default: )

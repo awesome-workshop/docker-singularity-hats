@@ -29,7 +29,7 @@ Most of these images are relatively small (a few 100 MB at most). However, the l
 
 Follow the direction to install [XQuartz](https://www.xquartz.org/). Once installed, start the program and navigate to XQuartz->Preferences->Security. Make sure that both the "Authenticate connections" and "Allow connections from network clients" checkboxes are selected. If you change any settings, you will need to restart XQuartz.
 
-<img src="../fig/XQuartz.png" alt="XQuartz" style="width:400px"> 
+<img src="fig/XQuartz.png" alt="XQuartz" style="width:400px"> 
 
 ## Windows specific setup
 
