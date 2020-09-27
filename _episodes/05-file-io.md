@@ -1,6 +1,6 @@
 ---
 title: "File I/O with Containers"
-teaching: 15
+teaching: 5
 exercises: 5
 questions:
 - "How do containers interact with my local file system?"
@@ -25,7 +25,9 @@ docker cp io_example.txt <NAME>:<remote path>
 ~~~
 {: .source}
 
-and then from the container check and modify it in some way
+**Note:** Remember to do `docker ps` if you don't know the name of your container.
+
+From the container check and modify the file in some way
 
 ~~~bash
 pwd
@@ -116,12 +118,20 @@ created_inside.txt
 ~~~
 {: .output}
 
-This I/O allows for Docker images to be used for specific tasks that may be difficult to
-do with the tools or software installed on only the local host machine.
-For example, debugging problems with software that arise on cross-platform software, or
-even just having a specific version of software perform a task (e.g., using Python 2 when
-    you don't want it on your machine, or using a specific release of
-    [TeX Live][Tex-Live-image] when you aren't ready to update your system release).
+This I/O allows for Docker images to be used for specific tasks that may be difficult to do with the tools or software installed on the local host machine.
+For example, debugging problems with software that arise on cross-platform software, or even just having a specific version of software perform a task (e.g., using Python 2 when you don't want it on your machine, or using a specific release of [TeX Live][Tex-Live-image] when you aren't ready to update your system release).
+
+> ## `--volume (-v)` versus `--mount`
+> 
+> The [Docker documentation][docker-docs-bind-mounts] has a full and very interesting discussion about bind/volume mounting using these two options. However, much of it boils down to `--mount` being a more explicit and customizable command. The `-v` syntax combines many of the options found in `--mount` into a single field.
+> 
+> > "Tip: New users should use the --mount syntax. Experienced users may be more familiar with the -v or --volume syntax, but are encouraged to use --mount, because research has shown it to be easier to use."
+> {: .challenge}
+> 
+> **Key difference:** If a file/directory doesn't exist on the host:
+> * `-v` or `--volume` will create the endpoint for you as a directory.
+> * `--mount` will generate an error.
+{: .callout}
 
 <!--# Running Jupyter from a Docker Container-->
 <!---->
@@ -161,6 +171,7 @@ even just having a specific version of software perform a task (e.g., using Pyth
 <!---->
 [docker-docs-cp]: https://docs.docker.com/engine/reference/commandline/cp/
 [docker-docs-volumes]: https://docs.docker.com/storage/volumes/
+[docker-docs-bind-mounts]: https://docs.docker.com/storage/bind-mounts/
 [Tex-Live-image]: https://hub.docker.com/r/matthewfeickert/latex-docker/
 [docker-docs-run-expose-ports]: https://docs.docker.com/engine/reference/run/#expose-incoming-ports
 [jupyter-docs-server]: https://jupyter.readthedocs.io/en/latest/running.html#starting-the-notebook-server
