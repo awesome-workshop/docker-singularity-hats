@@ -17,6 +17,8 @@ keypoints:
 
 # Introduction
 
+<img align="right" src="../fig/singularity-logo.png" alt="Singularity Logo" style="width:250px">
+
 One thing that has not been covered in detail is that containers do not
 necessarily have to be executed using Docker. While Docker is the most popular containerization tool these days, there are several so-called
 container run-times that allow the execution of containers. CMS uses
@@ -41,6 +43,8 @@ are needed. These are not available to you on CMSLPC/LXPLUS (nor is the `docker`
 > The [RECAST FAQ](https://recast-docs.web.cern.ch/recast-docs/faq/#q-how-are-docker-and-singularity-different) includes a brief intro to the important differences between docker and singularity. 
 {: .callout}
 
+<img align="center" src="../fig/DockerVsSingularity.png" alt="Docker vs. Singularity" style="width:800px">
+
 # CMS documentation on Singularity
 
 Before we go into any detail, you should be aware of the
@@ -56,18 +60,16 @@ automatically done when running the `cmssw-env` command.
 > Confirm that you can access your EOS home directory
 > (`/eos/user/${USER:0:1}/${USER}`) from the Singularity CC7 shell.
 >
+> > ## Solution: Run the CC7 Singularity container
+> >
+> > ~~~bash
+> > cmssw-cc7 --bind `readlink $HOME` --bind `readlink -f ${HOME}/nobackup/` --bind /cvmfs
+> > ls /eos/uscms/store/user/${USER} #CMSLPC
+> > exit
+> > ~~~
+> > {: .source}
+> {: .solution}
 {: .challenge}
-
-> ## Solution: Run the CC7 Singularity container
->
-> ~~~
-> cmssw-cc7 --bind `readlink $HOME` --bind `readlink -f ${HOME}/nobackup/` --bind /cvmfs
-> ls /eos/uscms/store/user/${USER} #CMSLPC
-> exit
-> ~~~
-> {: .language-bash}
->
-{: .solution}
 
 # Running custom images with Singularity
 

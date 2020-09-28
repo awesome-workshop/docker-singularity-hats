@@ -18,14 +18,9 @@ keypoints:
 
 # Docker Hub and Image Registries
 
-Much like GitHub allows for web hosting and searching for code, the [Docker Hub][docker-hub]
-image registry allows the same for Docker images.
-Hosting and building of images is [free for public repositories][docker-hub-billing] and
-allows for downloading images as they are needed.
-Additionally, through integrations with GitHub and Bitbucket, Docker Hub repositories can
-be linked against Git repositories so that
-[automated builds of Dockerfiles on Docker Hub][docker-hub-builds] will be triggered by
-pushes to repositories.
+Much like GitHub allows for web hosting and searching for code, the [Docker Hub][docker-hub] image registry allows the same for Docker images. Hosting and building of images is [free for public repositories][docker-hub-billing] and allows for downloading images as they are needed. Additionally, through integrations with GitHub and Bitbucket, Docker Hub repositories can be linked against Git repositories so that [automated builds of Dockerfiles on Docker Hub][docker-hub-builds] will be triggered by pushes to repositories.
+
+<img align="center" src="../fig/High-level-overview-of-Docker-architecture.png" alt="High-level overview of the Docker architecture" style="width:600px">
 
 While Docker Hub is maintained by Docker and is the defacto default registry for Docker images, it is not the only registry in existence. There are many registries, both private and public, in existence. For example, the GitLab software allows for a registry service to be setup alongside its Git and CI/CD management software. CERN's GitLab instance has such a registry available. See later episodes for more information on CERN's GitLab Docker image registry.
 
