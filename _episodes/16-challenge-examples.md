@@ -1,13 +1,13 @@
 ---
-title: "Challenge Examples"
+title: "Bonus: SSH Credentials"
 teaching: 0
-exercises: 20
+exercises: 10
 questions:
-- "How to do a few more things?"
+- "How do I access my SSH credentials within a container?"
 objectives:
 - "How to run with SSH and not use `cp`"
 keypoints:
-- "Containers are extensive"
+- "Containers are very extensible"
 ---
 
 > ## Get SSH credentials in a container without `cp`
@@ -18,12 +18,14 @@ keypoints:
 > >
 > > Mount multiple volumes
 > >~~~
-> >docker run --rm -it \
-> >  -w /home/atlas/Bootcamp \
-> >  -v $PWD:/home/atlas/Bootcamp \
-> >  -v $HOME/.ssh:/home/atlas/.ssh \
-> >  -v $HOME/.gitconfig:/home/atlas/.gitconfig \
-> >  atlas/analysisbase:21.2.85-centos7
+> >docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN \
+> >  -e CVMFS_MOUNTS="none" \
+> >  -e MY_UID=$(id -u) -e MY_GID=$(id -g) \
+> >  -w /home/cmsusr/workdir \
+> >  -v $PWD:/home/cmsusr/workdir \
+> >  -v $HOME/.ssh:/home/cmsusr/.ssh \
+> >  -v $HOME/.gitconfig:/home/cmsusr/.gitconfig \
+> >  aperloff/cms-cvmfs-docker:latest
 > >~~~
 > >{: .source}
 > {: .solution}

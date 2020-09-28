@@ -18,10 +18,10 @@ and the path can be changed by setting the `SINGULARITY_CACHEDIR` variable.
 The EP-SFT group provides a service that unpacks Docker images and makes them
 available via a dedicated CVMFS area. In the following, you will learn how to
 add your images to this area. Once you have your image(s) added to this area,
-these images will be automatically synchronised from the image registry
+these images will be automatically synchronized from the image registry
 to the CVMFS area within a few minutes whenever you create a new version of the image.
 
-## Exploring the CVMFS `unpacked.cern.ch` area
+# Exploring the CVMFS `unpacked.cern.ch` area
 
 The *unpacked* area is a directory structure within CVMFS:
 
@@ -38,35 +38,35 @@ gitlab-registry.cern.ch  registry.hub.docker.com
 You can see the full directory structure of an image:
 
 ~~~
-ls /cvmfs/unpacked.cern.ch/gitlab-registry.cern.ch/awesome-workshop/payload-docker-cms:3daaa96e
+ls /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity/
 ~~~
 {: .language-bash}
 
 ~~~
-afs  builds  dev          eos  home  lib64       media  opt   proc  run   singularity  sys  usr
-bin  cvmfs   environment  etc  lib   lost+found  mnt    pool  root  sbin  srv          tmp  var
+bin   dev          etc   lib    libgpuarray  mnt  proc  run   singularity  sys  usr
+boot  environment  home  lib64  media        opt  root  sbin  srv          tmp  var
 ~~~
 {: .output}
 
 This can be useful for investigating some internal details of the image.
 
-As mentioned above, the images are synchronised with the respective registry.
-However, you don't get to know when the synchronisation happened[^1], but there
-is an easy way to check by looking at the timestamp of the image directory:
+As mentioned above, the images are synchronized with the respective registry.
+However, you don't get to know when the synchronization happened[^1], but there
+is an easy way to check by looking at the time-stamp of the image directory:
 
 ~~~
-ls -l /cvmfs/unpacked.cern.ch/gitlab-registry.cern.ch/awesome-workshop/payload-docker-cms:3daaa96e
+ls -l /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity
 ~~~
 {: .language-bash}
 
 ~~~
-lrwxrwxrwx. 1 cvmfs cvmfs 79 Feb 18 00:31 /cvmfs/unpacked.cern.ch/gitlab-registry.cern.ch/awesome-workshop/payload-docker-cms:3daaa96e -> ../../.flat/28/28ba0646b6e62ab84759ad65c98cab835066c06e5616e48acf18f880f2c50f90
+lrwxrwxrwx. 1 cvmfs cvmfs 79 Aug 17 13:54 /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity -> ../../.flat/09/09421a19e97538a2fab2d782882101bc63cfe58b805d9122c9f60c5fb0989eb9
 ~~~
 {: .output}
 
-In the example given here, the image has last been updated on February 18th at 00:31.
+In the example given here, the image has last been updated on August 17th at 13:54.
 
-## Adding to the CVMFS `unpacked.cern.ch` area
+# Adding to the CVMFS `unpacked.cern.ch` area
 
 You can add your image to the `unpacked.cern.ch` area by making a merge
 request to the [unpacked sync repository][unpacked-sync]. In this repository
@@ -75,7 +75,7 @@ simply have to add a line with your full image name (including registry)
 prepending `https://`:
 
 ~~~
-- https://gitlab-registry.cern.ch/awesome-workshop/payload-docker-cms:3daaa96e
+    - 'https://registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity'
 ~~~
 {: .language-yaml}
 
@@ -83,11 +83,11 @@ As of 14th February 2020, it is also possible to use wildcards for the
 tags, i.e. you can simply add
 
 ~~~
-- https://gitlab-registry.cern.ch/awesome-workshop/payload-docker-cms:*
+    - 'https://registry.hub.docker.com/fnallpc/fnallpc-docker:*'
 ~~~
 {: .language-yaml}
 
-and whenever you build an image with a new tag it will be synchronised
+and whenever you build an image with a new tag it will be synchronized
 to `/cvmfs/unpacked.cern.ch`.
 
 > ## Image removal
@@ -95,7 +95,7 @@ to `/cvmfs/unpacked.cern.ch`.
 > 
 {: .callout}
 
-## Running Singularity using the `unpacked.cern.ch` area
+# Running Singularity using the `unpacked.cern.ch` area
 
 Running Singularity using the `unpacked.cern.ch` area is done using the
 same commands as listed in the previous episode with the only difference
@@ -103,64 +103,22 @@ that instead of providing a `docker://` image name to Singularity,
 you provide the path in `/cvmfs/unpacked.cern.ch`:
 
 ~~~
-singularity shell -B /afs -B /eos -B /cvmfs /cvmfs/unpacked.cern.ch/gitlab-registry.cern.ch/awesome-workshop/payload-docker-cms:3daaa96e
+singularity exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` -B /cvmfs /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity /bin/bash
 ~~~
 {: .language-bash}
 
 Now you should be in an interactive shell almost immediately without any
-image pulling or unpacking. One important thing to note is that for most
-CMS images, the default username is `cmsusr`, and if you compiled your
-analysis code in the container, it will by default reside in
-`/home/cmsusr`:
-
-~~~
-Singularity> cd /home/cmsusr/CMSSW_10_6_8_patch1/src/
-Singularity> source /cvmfs/cms.cern.ch/cmsset_default.sh
-Singularity> cmsenv
-Singularity> cd AnalysisCode/ZPeakAnalysis/
-Singularity> cmsRun test/MyZPeak_cfg.py
-~~~
-{: .language-bash}
-
-And there we are, we run the analysis in a container interactively!
-However, there is one issue we will run in. After running over the
-input file, the `cmsRun` command will exit with a warning:
-
-~~~
-Warning in <TStorageFactoryFile::Write>: file myZPeak.root not opened in write mode
-~~~
-{: .output}
-
-The output file will actually not be written. The reason for that is that
-we cannot write into the container file system with Singularity.
-We will have to change the `MyZPeak_cfg.py` file such that it writes
-out to a different path.
+image pulling or unpacking.
 
 > ## Note
 >
-> Mind that you cannot change files in the Singularity container.
+> Mind that you cannot change/write files into the container file system with Singularity. If your activity will create or modify files in the container you will need to write those files to EOS or a mounted directory.
 >
 {: .callout}
 
-Commit these changes, push them, and your new image will show up on
-CVMFS within a few minutes. The new image has the tag `0950e980`.
-
-~~~
-singularity shell -B /afs -B /eos -B /cvmfs /cvmfs/unpacked.cern.ch/gitlab-registry.cern.ch/awesome-workshop/payload-docker-cms:0950e980
-Singularity> cd /home/cmsusr/CMSSW_10_6_8_patch1/src/
-Singularity> source /cvmfs/cms.cern.ch/cmsset_default.sh
-Singularity> cmsenv
-Singularity> cd AnalysisCode/ZPeakAnalysis/
-Singularity> export ANALYSIS_OUTDIR="/eos/user/${USER:0:1}/${USER}"
-Singularity> cmsRun test/MyZPeak_cfg.py
-Singularity> exit
-ls -l /eos/user/${USER:0:1}/${USER}/myZPeak.root
-~~~
-{: .language-bash}
-
 > ## Where to go from here?
 >
-> Knowing that you can build images on you local machine, Docker Hub, GitHub, or GitLab and have them synchronised to the `unpacked.cern.ch` area, you now have the power to run reusable and versioned stages of your analysis. While we have only run test jobs using these containers, you can [run them on the batch system][batchdocs-containers], i.e. your full analysis in containers with effectively only advantages.
+> Knowing that you can build images on you local machine, Docker Hub, GitHub, or GitLab and have them synchronized to the `unpacked.cern.ch` area, you now have the power to run reusable and versioned stages of your analysis. While we have only run these containers locally, you can [run them on the batch system][batchdocs-containers], i.e. your full analysis in containers with effectively only advantages.
 >
 {: .testimonial}
 

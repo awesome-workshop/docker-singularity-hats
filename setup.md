@@ -21,6 +21,7 @@ docker pull aperloff/cms-cvmfs-docker:latest
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cvmfs
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21-slc7_amd64_gcc700:2020-09-22-ef834977
+docker pull fnallpc/fnallpc-docker:pytorch-1.5-cuda10.1-cudnn7-runtime-singularity
 ~~~
 
 Most of these images are relatively small (a few 100 MB at most). However, the last image is almost 8 GB and may take some time to download.

@@ -1,5 +1,5 @@
 ---
-title: "Accessing CVMFS from Docker locally"
+title: "Accessing CVMFS From Docker Locally"
 teaching: 10
 exercises: 0
 questions:

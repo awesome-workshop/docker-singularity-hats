@@ -104,7 +104,7 @@ REDHAT_SUPPORT_PRODUCT_VERSION="7.8"
 ~~~
 {: .output}
 
-## Monitoring Containers
+# Monitoring Containers
 
 Open up a new terminal tab on the host machine and
 [list the containers that are currently running][docker-docs-ps]

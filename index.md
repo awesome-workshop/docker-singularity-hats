@@ -268,7 +268,7 @@ during the workshop.
 >
 > Have access to a computing cluster with [Singularity](https://singularity.lbl.gov/) installed on it. We will be using the CMSLPC cluster for this demo ([account request directions](http://www.uscms.org/uscms_at_work/computing/getstarted/index.shtml)).
 >
-> **(optional)** A VO registered grid certificate ([request directions](http://www.uscms.org/uscms_at_work/computing/getstarted/get_grid_cert.shtml))
+> **(optional)** A VO registered grid certificate ([request directions](http://www.uscms.org/uscms_at_work/computing/getstarted/get_grid_cert.shtml)) setup on your local machine ([setup directions](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookStartingGrid#ObtainingCert))
 >
 > **(optional)** A GitLab account (CMS users have access to CERN's GitLab instance)
 {: .prereq}

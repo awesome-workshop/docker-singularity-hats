@@ -15,23 +15,18 @@ keypoints:
 - "Docker images can use `COPY` to copy files into them during build"
 ---
 
-Docker images are built through the Docker engine by reading the instructions from a
-[`Dockerfile`][docker-docs-builder].
-These text based documents provide the instructions though an API similar to the Linux
-operating system commands to execute commands during the build.
-The [`Dockerfile` for the example image][example-Dockerfile] being used is an example of
-some simple extensions of the [official Python 3.6.8 Docker image][python-docker-image].
+Docker images are built through the Docker engine by reading the instructions from a [`Dockerfile`][docker-docs-builder].[^1] These text based documents provide the instructions though an API similar to the Linux operating system commands to execute commands during the build.
 
-As a very simple example of extending the example image into a new image create a `Dockerfile`
-on your local machine
+We can take a look at a simple [`Dockerfile`][example-Dockerfile], which is an extension of the [official Python 3.6.8 Docker image][python-docker-image]. We can then take this image and extend it further using out own Dockerfile.
+
+Begin by creating a `Dockerfile` on your local machine
 
 ~~~bash
 touch Dockerfile
 ~~~
 {: .source}
 
-and then write in it the Docker engine instructions to add [`cowsay`][cowsay] and
-[`scikit-learn`][scikit-learn] to the environment
+and then write in it the Docker engine instructions to add [`cowsay`][cowsay] and [`scikit-learn`][scikit-learn] to the environment
 
 ~~~yaml
 # Dockerfile
@@ -77,9 +72,7 @@ USER docker
 
 > ## Don't run as `root`
 >
->By default Docker containers will run as `root`. This is a bad idea and a security concern.
->Instead, setup a default user (like `docker` in the example) and if needed give the user
->greater privileges.
+>By default Docker containers will run as `root`. This is a bad idea and a security concern. Instead, setup a default user (like `docker` in the example) and if needed give the user greater privileges. **Please don't take this Dockerfile as an example of a super secure image.**
 {: .callout}
 
 Then [`build`][docker-docs-build] an image from the `Dockerfile` and tag it with a human
@@ -164,8 +157,7 @@ docker tag <SOURCE_IMAGE[:TAG]> <TARGET_IMAGE[:TAG]>
 
 ## `COPY`
 
-Docker also gives you the ability to copy external files into a Docker image during the
-build with the [`COPY`][docker-docs-COPY] Dockerfile command.
+Docker also gives you the ability to copy external files into a Docker image during the build with the [`COPY`][docker-docs-COPY] Dockerfile command.
 Which allows copying a target file from a host file system into the Docker image
 file system
 
@@ -235,8 +227,13 @@ docker build -f Dockerfile.copy -t copy-example:latest .
 ~~~
 {: .source}
 
-For very complex scripts or files that are on some remote, `COPY` offers a straightforward
-way to bring them into the Docker build.
+For very complex scripts or files that are on some remote, `COPY` offers a straightforward way to bring them into the Docker build.
+
+> ## COPY vs ADD
+> 
+> The `COPY` and `ADD` Dockerfile commands are nearly identical. However, there are some subtle differences which make the `COPY` command more desirable for novice users. The `ADD` command is technically more powerful, but can lead to unintended consequences if you don't know what it's doing. For more information see the [Best practices for writing Dockerfiles][docker-docs-dockerfile-add-or-copy] document.
+> 
+{: .callout}
 
 
 [docker-docs-builder]: https://docs.docker.com/engine/reference/builder/
@@ -251,5 +248,9 @@ way to bring them into the Docker build.
 [docker-docs-ENV]: https://docs.docker.com/engine/reference/builder/#env
 [docker-docs-tag]: https://docs.docker.com/engine/reference/commandline/tag/
 [docker-docs-COPY]: https://docs.docker.com/engine/reference/builder/#copy
+[docker-docs-dockerfile-stdin]: https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#pipe-dockerfile-through-stdin
+[docker-docs-dockerfile-add-or-copy]: https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#add-or-copy
+
+[^1]: This is not the only way to build an image as specified in the [Best practices for writing Dockerfiles][docker-docs-dockerfile-stdin].
 
 {% include links.md %}

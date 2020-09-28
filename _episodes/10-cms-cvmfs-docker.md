@@ -1,5 +1,5 @@
 ---
-title: "Using the cms-cvmfs-docker image"
+title: "Using the cms-cvmfs-docker Image"
 teaching: 20
 exercises: 20
 questions:
@@ -129,6 +129,41 @@ voms-proxy-init -voms cms --valid 192:00 -cert ~/.globus/usercert.pem -key ~/.gl
 
 Not only does that make sure people don't forget the typical options, but for some reason the base command is unable to find the user certificate automatically. So we gave it a little help.
 
+> ## Exercise: Try a standard CMS workflow
+> See if you can start a container with the ability to do `voms-proxy-init` and use `xrdfs`.
+> 
+> > ## Solution
+> > 
+> > ~~~bash
+> > docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsuser/.globus aperloff/cms-cvmfs-docker:latest
+> > voms-proxy-init
+> > xrdfs root://cmseos.fnal.gov/ ls /store/user/hats/2020
+> > ~~~
+> > {: .source}
+> > 
+> > ~~~
+> > Mounting the filesystem "cms.cern.ch" ... DONE
+> > Mounting the filesystem "oasis.opensciencegrid.org" ... DONE
+> > Checking CVMFS mounts ... DONE
+> >     The following CVMFS folders have been successfully mounted:
+> >         cms.cern.ch
+> >         oasis.opensciencegrid.org
+> > 
+> > Enter GRID pass phrase:
+> > Your identity: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=aperloff/CN=702705/CN=Alexx Perloff
+> > Creating temporary proxy .................................................................................... Done
+> > Contacting  voms2.cern.ch:15002 [/DC=ch/DC=cern/OU=computers/CN=voms2.cern.ch] "cms" Done
+> > Creating proxy ......................................................................................................... Done
+> > 
+> > Your proxy is valid until Mon Oct  5 05:16:52 2020
+> > /store/user/hats/2020/JEC
+> > /store/user/hats/2020/Tau
+> > /store/user/hats/2020/Visualization
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
 # X11 support
 
 It's often useful to display graphical windows which originate from within the container. in order to do so, we will need some components in place first. You will need to have a properly configured X Window System. There are some notes about this in the [setup directions]({{ page.root }}{% link setup.md %}). We also recommend restricting the default ip address to `127.0.0.1` as specified in the `Ports` section of the [image security lesson]({{ page.root }}{% link _episodes/06-security.md %}).
@@ -161,81 +196,6 @@ docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:
 > ~~~
 > {: .output}
 {: .callout}
-
-# Use a VNC server inside the container
-
-Some people prefer to work with VNC rather than X11. I've even been told that this is preferable by some of my colleagues who use Windows 10. In order to facilitate this use case, the image comes with a built-in VNC server and noVNC+WebSockify, so that the host can connect via a web browser.
-
-To run a VNC server inside the container you will need to open two ports using the options `-P -p 5901:5901 -p 6080:6080`. Once you're inside the container, use the command `start_vnc` to start the VNC server.
-
-You will now have two or three with which to connect:
-1. VNC viewer address: 127.0.0.1:5901
-1. OSX built-in VNC viewer command: open vnc://127.0.0.1:5901
-1. Web browser URL: http://127.0.0.1:6080/vnc.html?host=127.0.0.1&port=6080
-
-> ## Special note for OSX users
-> 
-> You will need to go to *System Preferences* -> *Sharing* and turn on *Screen Sharing* if using a VNC viewer, built-in or otherwise. You will not need to do this if using the browser.
-
-More information about this feature can be found in the images [GitHub README](https://github.com/aperloff/cms-cvmfs-docker#starting-and-connecting-to-a-vnc-server).
-
-# Because we love our users ... you're welcome
-
-> ## The `cvmfs_docker` helper function
->
-> We know this can be a lot to remember. I certainly don't want to type all of those commands every time I start a container. Therefore, we have developed a bash function with a handy help message. Instead of typing the docker command manually, just run the function and let it start the container for you.
-> 
-> To obtain the bash function, clone the GitHub repository and source the `.cms-cvmfs-docker` script:
-> 
-> ~~~bash
-> git clone https://github.com/aperloff/cms-cvmfs-docker.git
-> source cms-cvmfs-docker/.cms-cvmfs-docker
-> ~~~
-> {: .source}
-> 
-> > ## Help message
-> > 
-> > ~~~bash
-> > cvmfs_docker -h
-> > ~~~
-> > {: .source}
-> > 
-> > ~~~
-> >  [-h] [-m "space separated mounts"] [-l <loacal path to mount>] [-r <remote path to mount>]
-> >     -- opens a temporary docker container for mounting CVMFS
-> >        simply specify the mount points or  for all and then specify an additional folder to mount into the container
-> > 
-> >     where:
-> >         -d            print the command being used to invoke the docker container (default: false)
-> >         -g            mount the global gitconfig file from the host (default: false)
-> >         -h            show this help text
-> >         -l  [LOCAL]   local path to mount in container (default: )
-> >         -m  [MOUNTS]  sets the mount points; space separate multiple points inside quotes (default: )
-> >         -n  [NAME]    make the container persistent (default: )
-> >         -r  [REMOTE]  remote path to mount in the container (default: /root/local_mount/)
-> >         -s            mount the .ssh folder (default: false)
-> >         -v            expose the ports needed to use a VNC viewer (default: )
-> > 
-> >     example: cvmfs_docker -m "cms.cern.ch oasis.opensciencegrid.org" -l /Users/aperloff/Documents/CMS/FNAL/HATS/Docker_Singularity -r /root/workdir
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .testimonial}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Exercises
 
 > ## Exercise: X11 support, no CVMFS
 > See if you can open a container without mounting CVMFS and simply test your X11 support by starting `xeyes`.
@@ -280,41 +240,22 @@ More information about this feature can be found in the images [GitHub README](h
 > {: .solution}
 {: .challenge}
 
-> ## Exercise: Try a standard CMS workflow
-> See if you can start a container with the ability to do `voms-proxy-init` and use `xrdfs`.
+# Use a VNC server inside the container
+
+Some people prefer to work with VNC rather than X11. I've even been told that this is preferable by some of my colleagues who use Windows 10. In order to facilitate this use case, the image comes with a built-in VNC server and noVNC+WebSockify, so that the host can connect via a web browser.
+
+To run a VNC server inside the container you will need to open two ports using the options `-P -p 5901:5901 -p 6080:6080`. Once you're inside the container, use the command `start_vnc` to start the VNC server.
+
+You will now have two or three with which to connect:
+1. VNC viewer address: 127.0.0.1:5901
+1. OSX built-in VNC viewer command: open vnc://127.0.0.1:5901
+1. Web browser URL: http://127.0.0.1:6080/vnc.html?host=127.0.0.1&port=6080
+
+> ## Special note for OSX users
 > 
-> > ## Solution
-> > 
-> > ~~~bash
-> > docker run --rm -it -P --device /dev/fuse --cap-add SYS_ADMIN -e DISPLAY=host.docker.internal:0 -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsuser/.globus aperloff/cms-cvmfs-docker:latest
-> > voms-proxy-init
-> > xrdfs root://cmseos.fnal.gov ls /store/user/lpchats/
-> > ~~~
-> > {: .source}
-> > 
-> > ~~~
-> > Mounting the filesystem "cms.cern.ch" ... DONE
-> > Mounting the filesystem "oasis.opensciencegrid.org" ... DONE
-> > Checking CVMFS mounts ... DONE
-> >     The following CVMFS folders have been successfully mounted:
-> >         cms.cern.ch
-> >         oasis.opensciencegrid.org
-> > 
-> > Enter GRID pass phrase:
-> > Your identity: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=aperloff/CN=702705/CN=Alexx Perloff
-> > Creating temporary proxy .................................................................................... Done
-> > Contacting  voms2.cern.ch:15002 [/DC=ch/DC=cern/OU=computers/CN=voms2.cern.ch] "cms" Done
-> > Creating proxy ......................................................................................................... Done
-> > 
-> > Your proxy is valid until Mon Oct  5 05:16:52 2020
-> > 
-> > [FATAL] Connection error
-> > FIXME
-> > 
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
+> You will need to go to *System Preferences* -> *Sharing* and turn on *Screen Sharing* if using a VNC viewer, built-in or otherwise. You will not need to do this if using the browser.
+
+More information about this feature can be found in the images [GitHub README](https://github.com/aperloff/cms-cvmfs-docker#starting-and-connecting-to-a-vnc-server).
 
 > ## Exercise: Use cmsShow over VNC
 > See if you can start a container and use cmsShow through VNC, not X11.
@@ -397,5 +338,48 @@ More information about this feature can be found in the images [GitHub README](h
 > > <img src="../fig/VNC_cmsShow.png" alt="VNC_cmsShow" style="width:800px"> 
 > {: .solution}
 {: .challenge}
+
+# Because we love our users ... you're welcome
+
+> ## The `cvmfs_docker` helper function
+>
+> We know this can be a lot to remember. I certainly don't want to type all of those commands every time I start a container. Therefore, we have developed a bash function with a handy help message. Instead of typing the docker command manually, just run the function and let it start the container for you.
+> 
+> To obtain the bash function, clone the GitHub repository and source the `.cms-cvmfs-docker` script:
+> 
+> ~~~bash
+> git clone https://github.com/aperloff/cms-cvmfs-docker.git
+> source cms-cvmfs-docker/.cms-cvmfs-docker
+> ~~~
+> {: .source}
+> 
+> > ## Help message
+> > 
+> > ~~~bash
+> > cvmfs_docker -h
+> > ~~~
+> > {: .source}
+> > 
+> > ~~~
+> >  [-h] [-m "space separated mounts"] [-l <loacal path to mount>] [-r <remote path to mount>]
+> >     -- opens a temporary docker container for mounting CVMFS
+> >        simply specify the mount points or  for all and then specify an additional folder to mount into the container
+> > 
+> >     where:
+> >         -d            print the command being used to invoke the docker container (default: false)
+> >         -g            mount the global gitconfig file from the host (default: false)
+> >         -h            show this help text
+> >         -l  [LOCAL]   local path to mount in container (default: )
+> >         -m  [MOUNTS]  sets the mount points; space separate multiple points inside quotes (default: )
+> >         -n  [NAME]    make the container persistent (default: )
+> >         -r  [REMOTE]  remote path to mount in the container (default: /root/local_mount/)
+> >         -s            mount the .ssh folder (default: false)
+> >         -v            expose the ports needed to use a VNC viewer (default: )
+> > 
+> >     example: cvmfs_docker -m "cms.cern.ch oasis.opensciencegrid.org" -l /Users/aperloff/Documents/CMS/FNAL/HATS/Docker_Singularity -r /root/workdir
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .testimonial}
 
 {% include links.md %}

@@ -1,5 +1,5 @@
 ---
-title: "Using full CMSSW containers"
+title: "Using Full CMSSW Containers"
 teaching: 10
 exercises: 0
 questions:
@@ -55,6 +55,10 @@ docker run --rm -it gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21
 > Due to the large size of these images, they should only be used for local
 > development.
 >
+{: .callout}
+
+> ## Note
+> One important thing to note is that for most CMS images, the default username is `cmsusr`. This will hold true for all of the centrally produced CMS images mentioned in these lessons.
 {: .callout}
 
 {% include links.md %}
