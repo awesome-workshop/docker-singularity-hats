@@ -37,7 +37,7 @@ that doesn't need to know anything about CMS software in the first place.
 The only requirement is that Docker is installed. These same container can then be run in GitLab CI/CD via Docker.
 
 You will also have noticed that in several cases *privileged* containers
-are needed. These are not available to you on CMSLPC/LXPLUS (nor is the `docker` command). On CMSLPC/LXPLUS, the tool to run containers is Singularity. **The following commands will therefore all be run on CMSLPC** (`cmslcp-sl7.fnal.gov` or specifically).
+are needed. These are not available to you on CMSLPC/LXPLUS (nor is the `docker` command). On CMSLPC/LXPLUS, the tool to run containers is Singularity. **The following commands will therefore all be run on CMSLPC** (`cmslpc-sl7.fnal.gov` or specifically).
 
 > ## Docker vs Singularity
 > The [RECAST FAQ](https://recast-docs.web.cern.ch/recast-docs/faq/#q-how-are-docker-and-singularity-different) includes a brief intro to the important differences between docker and singularity. 
@@ -55,6 +55,7 @@ runs Singularity. The nice thing about Singularity is that you can
 mount `/cvmfs`, `/eos`, and `/afs` without any workarounds. This is
 automatically done when running the `cmssw-env` command.
 
+<!--
 > ## Exercise: Run the CC7 Singularity container
 >
 > Confirm that you can access your EOS home directory
@@ -70,6 +71,7 @@ automatically done when running the `cmssw-env` command.
 > > {: .source}
 > {: .solution}
 {: .challenge}
+-->
 
 # Running custom images with Singularity
 
@@ -214,12 +216,12 @@ singularity shell -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` docker:
 
 # Custom containers for machine learning at the LPC
 
-The LPC has three GPUs available for use at the LPC. Rather than installing the myriad of packages necessary for machine learning on the bare-metal machines or manually synchronizing an Anaconda distribution to CVMFS (as done in the past), custom Singularity images have been built for this purpose.
+There are three GPUs available for use at the LPC. Rather than installing the myriad of packages necessary for machine learning on the bare-metal machines or manually synchronizing an Anaconda distribution to CVMFS (as done in the past), custom Singularity images have been built for this purpose.
 
 Currently we have three images built and ready to use:
 1. [PyTorch][pytorch] 1.5 w/ CUDA 10.1 ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/PyTorch/Dockerfile))
-1. [TensorFlow][tensoflow] (GPU) 2.3.0 w/ development libraries ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/TensorFlow/Dockerfile))
-1. [TensorFlow][tensoflow] (GPU) 2.3.0 w/o development libraries ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/TensorFlow/Dockerfile))
+1. [TensorFlow][tensorflow] (GPU) 2.3.0 w/ development libraries ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/TensorFlow/Dockerfile))
+1. [TensorFlow][tensorflow] (GPU) 2.3.0 w/o development libraries ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/TensorFlow/Dockerfile))
 
 Of course there are many more packages installed in these images than just PyTorch or TensorFlow. If you don't see the exact variety you need, tell us and we can probably make it in ~1 day. The images are stored on [Docker Hub][docker-hub-fnallpc-docker].
 
@@ -230,7 +232,7 @@ Of course there are many more packages installed in these images than just PyTor
 
 > ## Using Jupyter within the image
 > 
-> You can start Jupyter Notebook using the `singularity exec` command, passing the directive `jupyter notebook --no-browser --port <port_number>` at the end of the command. For example:
+> You can start Jupyter Notebook using the `singularity exec` command, passing the directive `jupyter notebook --no-browser --port <port_number>` at the end of the command. Singularity, unlike Docker, doesn't require explicit port mapping. For example:
 > ~~~bash
 > singularity exec --nv --bind $PWD:/run/user /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:pytorch-1.5-cuda10.1-cudnn7-runtime-singularity jupyter notebook --no-browser --port 1234
 > ~~~

@@ -20,7 +20,7 @@ The benefits of this image include:
 1. X11 and VNC support.
 2. Host UID and GID mapping inside the container.
 3. Some rudimentary CVMFS mount verification and re-mounting support.
-4. Greater support for a variety of CVMFS mounts:
+4. Greater support for a variety of CVMFS mounts (compared to the cms-cloud images):
     * cms.cern.ch
     * cms-ib.cern.ch
     * oasis.opensciencegrid.org
@@ -30,7 +30,7 @@ The benefits of this image include:
     * cms-opendata-conddb.cern.ch
 5. The ability to mount all, a subset, or none of the CVMFS mount points.
 6. The image still allows access even if CVMFS is unreachable.
-7. No ability to `sudo`.
+7. No ability to `sudo`. Better for security, but sometimes a pain.
 
 # Basics
 
@@ -242,7 +242,7 @@ docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:
 
 # Use a VNC server inside the container
 
-Some people prefer to work with VNC rather than X11. I've even been told that this is preferable by some of my colleagues who use Windows 10. In order to facilitate this use case, the image comes with a built-in VNC server and noVNC+WebSockify, so that the host can connect via a web browser.
+Some people prefer to work with VNC rather than X11. I've even been told that this is preferable by some of my colleagues who use Windows 10. Using VNC avoids opengl+x11+? graphical incompatibilities. In order to facilitate this use case, the image comes with a built-in VNC server and noVNC+WebSockify, so that the host can connect via a web browser.
 
 To run a VNC server inside the container you will need to open two ports using the options `-P -p 5901:5901 -p 6080:6080`. Once you're inside the container, use the command `start_vnc` to start the VNC server.
 
@@ -361,7 +361,7 @@ More information about this feature can be found in the images [GitHub README](h
 > > {: .source}
 > > 
 > > ~~~
-> >  [-h] [-m "space separated mounts"] [-l <loacal path to mount>] [-r <remote path to mount>]
+> >  [-h] [-m "space separated mounts"] [-l <local path to mount>] [-r <remote path to mount>]
 > >     -- opens a temporary docker container for mounting CVMFS
 > >        simply specify the mount points or  for all and then specify an additional folder to mount into the container
 > > 

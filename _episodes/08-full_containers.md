@@ -46,7 +46,7 @@ docker run --rm -it cmsopendata/cmssw:10_6_8_patch1 /bin/zsh
 If you would like to use the images from the [CERN GitLab registry][cms-cloud-gitlab]:
 
 ~~~
-docker run --rm -it gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21-slc7_amd64_gcc700 /bin/zsh
+docker run --rm -it gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21-slc7_amd64_gcc700:2020-09-22-ef834977 /bin/zsh
 ~~~
 {: .language-bash}
 

@@ -53,11 +53,14 @@ docker run --rm -it -v /cvmfs:/cvmfs gitlab-registry.cern.ch/cms-cloud/cmssw-doc
 ~~~
 {: .language-bash}
 
+> ## Limitations
+> I'm told that mounting cvmfs locally on Windows only works in WSL2 and that the Linux instructions have to be used.
+{: .callout}
+
 # Using the `cvmfs-automounter`
 
 The first option needed CVMFS to be installed on the host computer (i.e. your laptop, a GitLab runner, or a Kubernetes node). Using the `cvmfs-automounter` is effectively mimicking what is done on the CERN GitLab CI/CD runners. First, a container, the `cvmfs-automounter`, is started that mounts CVMFS, and then this container provides the CVMFS mount to other containers. This is very similar to how modern web applications are orchestrated. If you are running Linux, the following command should work.
-**On a Mac, however, this will not work** (at least at the moment). This could
-work if you are using [Windows Subsystem for Linux 2 (WSL2)][wsl2] in combination with [Docker for WSL2][wsl2-docker].
+**On a OSX and Windows+cygwin, however, this will not work** (at least at the moment). This could work if you are using [Windows Subsystem for Linux 2 (WSL2)][wsl2] in combination with [Docker for WSL2][wsl2-docker], but not cygwin.
 
 ~~~
 sudo mkdir /shared-mounts
@@ -85,7 +88,7 @@ docker run -v /shared-mounts/cvmfs:/cvmfs:rslave -v $(pwd):$(pwd) -w $(pwd) --na
 This method seems to work on OSX, Windows 10 Pro, and most Linux systems. For the most part, it does not rely on the host system configuration. The caveat is that the container runs with elevated privileges, but if you trust me, you can use it.
 
 ~~~
-docker run --rm -it --cap-add SYS_ADMIN --device /dev/fuse gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-ccvmfs bash
+docker run --rm -it --cap-add SYS_ADMIN --device /dev/fuse gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cvmfs bash
 ~~~
 {: .language-bash}
 
@@ -127,7 +130,7 @@ cmsenv
 > {: .language-bash}
 {: .challenge}
 
-Currently there is something wrong with these centrally produced images. You will most likely receive and error message, like the one below, when trying to start the container.
+Currently there is something wrong with these centrally produced images when being run on OSX. You will most likely receive an error message, like the one below, when trying to start the container.
 ~~~
 chgrp: invalid group: 'fuse'
 ::: cvmfs-config...
@@ -143,6 +146,8 @@ Moint point /cvmfs/cms-opendata-conddb.cern.ch does not exist
 /opt/cms/entrypoint.sh: line 7: /cvmfs/cms.cern.ch/cmsset_default.sh: No such file or directory
 ~~~
 {: .output}
+
+Nevertheless, these apparently work in Windows. They still print the error messages above, but the container is still able to mount CVMFS. This image hasn't been tested on Linux recently.
 
 Current downsides to these images:
 1. If the mounting of CVMFS fails the image immediately exits. You must change the entrypoint in order to debug the issue.

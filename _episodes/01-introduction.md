@@ -37,7 +37,7 @@ This allows us to package up an application with just the dependencies we need (
 
 # Docker
 
-Docker is a multifaceted tool used to work with images and containers. You can think of the container life cycle as needing three component:
+Docker is a multifaceted tool used to work with images and containers. You can think of the container life cycle as needing three components:
 1. A way to programmatically define and build and image
 2. A way to run a container
 3. A way to manage images and orchestrate many containers

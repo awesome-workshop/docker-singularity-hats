@@ -112,8 +112,7 @@ sl                  latest              dddf32954161        3 weeks ago         
 
 > ## Pulling Python
 >
-> Pull the image python3.7-slim for Python 3.7 and then list all `python` images along with
-> the `matthewfeickert/intro-to-docker` image
+> Pull the image python:3.7-slim for Python 3.7 and then list all `python` images along with the `sl:7` image
 >
 > > ## Solution
 > >

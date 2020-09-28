@@ -28,7 +28,7 @@ keypoints:
 
 # The Docker daemon (dockerd) [^4]
 
-Unless you're running in [rootless mode (experimental)][docker-docs-security-rootless], the Docker daemon must be run as the root user on the home machine. This means that is has significant privileges on the host machine. Be careful when mounting directories into the container. The container can then modify the host filesystem, which can cause issues if you add/delete to the wrong directory. Think `rm -rf /`.
+Unless you're running in [rootless mode (experimental)][docker-docs-security-rootless], the Docker daemon must be run as the root user on the home machine. This means that it has significant privileges on the host machine. Be careful when mounting directories into the container. The container can then modify the host filesystem, which can cause issues if you add/delete to the wrong directory. Think `rm -rf /`.
 
 Some of this danger can be mitigated by limiting which directories can be bind mounted within the container. These settings are found in *Preferences* -> *Resources* -> *File Sharing*.
 
@@ -64,7 +64,7 @@ Not everyone will build a Docker image. However, for those of you that do it is 
 
 If you're using a base image which has an unverified provenance, you may want to: [^2]
 * find out how the image was created and know what packages are installed into the image.
-* verify that the image wasn't modified after its creation. You can use the SHA256 digest to do this.
+* verify that the image wasn't modified after its creation. You can use the SHA256 digest to do this. In other contexts the digest is known as a checksum. You can view the digests for all of your pulled images by doing `docker images --digests`.
 * scan for security vulnerabilities. There are tools to do this sort of static analysis, but that goes far beyond this document.
 
 # Fermilab computing

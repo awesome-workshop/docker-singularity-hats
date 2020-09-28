@@ -14,8 +14,7 @@ keypoints:
 
 # Copying
 
-[Copying][docker-docs-cp] files between the local host and Docker containers is possible.
-On your local host find a file that you want to transfer to the container and then
+[Copying][docker-docs-cp] files between the local host and Docker containers is possible. On your local host find a file that you want to transfer to the container and then
 
 ~~~bash
 touch io_example.txt
@@ -66,26 +65,21 @@ This was written inside Docker
 
 # Volume mounting
 
-What is more common and arguably more useful is to [mount volumes][docker-docs-volumes] to
-containers with the `-v` flag.
-This allows for direct access to the host file system inside of the container and for
-container processes to write directly to the host file system.
+What is more common and arguably more useful is to [mount volumes][docker-docs-volumes] to containers with the `-v` flag. This allows for direct access to the host file system inside of the container and for container processes to write directly to the host file system.
 
 ~~~bash
 docker run -v <path on host>:<path in container> <image>
 ~~~
 {: .source}
 
-For example, to mount your current working directory on your local machine to the `data`
-directory in the example container
+For example, to mount your current working directory on your local machine to the `data` directory in the example container
 
 ~~~bash
-docker run --rm -it -v $PWD:/home/docker/data matthewfeickert/intro-to-docker
+docker run --rm -it -v $PWD:/home/`whoami`/data sl:7
 ~~~
 {: .source}
 
-From inside the container you can `ls` to see the contents of your directory on your local
-machine
+From inside the container you can `ls` to see the contents of your directory on your local machine
 
 ~~~bash
 ls
@@ -100,7 +94,7 @@ pwd
 {: .source}
 
 ~~~
-/home/docker/data
+/home/<username>/data
 ~~~
 {: .output}
 
@@ -120,6 +114,21 @@ created_inside.txt
 
 This I/O allows for Docker images to be used for specific tasks that may be difficult to do with the tools or software installed on the local host machine.
 For example, debugging problems with software that arise on cross-platform software, or even just having a specific version of software perform a task (e.g., using Python 2 when you don't want it on your machine, or using a specific release of [TeX Live][Tex-Live-image] when you aren't ready to update your system release).
+
+> ## Mounts in Cygwin
+> Special care needs to be taken when using Cygwin and trying to mount directories. Assuming you have Cygwin installed at `C:\cygwin` and you want to mount your current working directory:
+> ~~~bash
+> echo $PWD
+> ~~~
+> {: .source}
+> 
+> ~~~
+> /home/<username>/<path_to_cwd>
+> ~~~
+> {: .output}
+> 
+> You will then need to mount that folder using `-v /c/cygwin/home/<username>/<path_to_cwd>:/home/docker/data`
+{: .callout}
 
 > ## `--volume (-v)` versus `--mount`
 > 

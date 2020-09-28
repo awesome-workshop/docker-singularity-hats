@@ -223,6 +223,14 @@ docker attach <CONTAINER ID>
 ~~~
 {: .source}
 
+> ## Attach shortcut
+> The two commands above (`docker start` and `docker attach`) can be combined into a single command as shown below:
+> 
+> ~~~bash
+> docker start -ai <CONTAINER ID>
+> ~~~
+{: .callout}
+
 > ## `exec` command
 > The [attach][docker-docs-attach] command used here is a handy shortcut to interactively access a running container with the same start command (in this case `/bin/bash`) that it was originally run with. 
 >
@@ -277,7 +285,7 @@ return to our working environment inside of them as desired.
 
 # Stopping a container
 
-Sometimes you will exited a container and it won't stop. Other times your container may crash or enter a bad state, but still be running. In order to stop a container you will exit it (`exit`) and the enter:
+Sometimes you will exited a container and it won't stop. Other times your container may crash or enter a bad state, but still be running. In order to stop a container you will exit it (`exit`) and then enter:
 
 ~~~bash
 docker stop <CONTAINER ID> # or <NAME>
