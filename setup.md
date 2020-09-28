@@ -20,11 +20,13 @@ docker pull sl:7
 docker pull aperloff/cms-cvmfs-docker:latest
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cvmfs
-docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21-slc7_amd64_gcc700:2020-09-22-ef834977
+# The next two images are optional.
+# You will need 8+25 GB of space available to your Docker Engine.
 docker pull fnallpc/fnallpc-docker:pytorch-1.5-cuda10.1-cudnn7-runtime-singularity
+docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21-slc7_amd64_gcc700:2020-09-22-ef834977
 ~~~
 
-Most of these images are relatively small (a few 100 MB at most). However, the last image is almost 8 GB and may take some time to download.
+Most of these images are relatively small (a few 100 MB at most). However, the last two images are almost 8 and 25 GB, respecitvely. These may take a good amount of time to download.
 
 ## OSX specific setup
 
@@ -38,5 +40,7 @@ If you are not using cygwin and want to use X11, you will need to install an xwi
 VcXsrv, though there are others available.
 
 If you would like to use cygwin, you will need to install [winpty](https://github.com/rprichard/winpty) and prefix your docker command like `winpty docker`.
+
+**We will also introduce a VNC option, which doesn't reply on X11.**
 
 {% include links.md %}
