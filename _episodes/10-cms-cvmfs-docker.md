@@ -240,6 +240,11 @@ docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:
 > {: .solution}
 {: .challenge}
 
+> ## Easily make your image X11 ready
+> The `X11ify` repository is available to make *many* images X11 ready. The Dockerfile in this repository will build off of your chosen image, installing the necessary components. For more information take a look at the [GitHub README](https://github.com/aperloff/X11ify).
+> 
+{: .testimonial}
+
 # Use a VNC server inside the container
 
 Some people prefer to work with VNC rather than X11. I've even been told that this is preferable by some of my colleagues who use Windows 10. Using VNC avoids opengl+x11+? graphical incompatibilities. In order to facilitate this use case, the image comes with a built-in VNC server and noVNC+WebSockify, so that the host can connect via a web browser.
@@ -338,6 +343,11 @@ More information about this feature can be found in the images [GitHub README](h
 > > <img src="../fig/VNC_cmsShow.png" alt="VNC_cmsShow" style="width:800px"> 
 > {: .solution}
 {: .challenge}
+
+> ## Easily make your image VNC ready
+> The `vncify` repository is available to make *many* images capable of running a VNC server and noVNC+WebSockify. The Dockerfile in this repository will build off of your chosen image, installing the necessary components. For more information take a look at the [GitHub README](https://github.com/kpedro88/vncify).
+> 
+{: .testimonial}
 
 # Using Jupyter within the container
 Many people prefer to use a [Jupyter Notebook][jupyter-org] environment for code/analysis development these days. While the *cms-cvmfs-docker* container does not have Jupyter Notebook installed (to keep the image small), Jupyter is accessible through the *sft.cern.ch* CVMFS mount.
