@@ -339,6 +339,88 @@ More information about this feature can be found in the images [GitHub README](h
 > {: .solution}
 {: .challenge}
 
+# Using Jupyter within the container
+Many people prefer to use a [Jupyter Notebook][jupyter-org] environment for code/analysis development these days. While the *cms-cvmfs-docker* container does not have Jupyter Notebook installed (to keep the image small), Jupyter is accessible through the *sft.cern.ch* CVMFS mount.
+
+> ## Exercise: Start a Jupyter server and view it in your browser
+> See if you can start a Jupter server in your container and view it in your browser. Make sure you also have interactive access to the container. You already have all of the information you need to accomplish this -- that is, assuming you know how to start a Jupyter server.
+> 
+> > ## Solution
+> > Begin by opening up a container:
+> > 
+> > ~~~bash
+> > docker run --rm -it -p 8888:8888 --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org sft.cern.ch" aperloff/cms-cvmfs-docker:latest
+> > ~~~
+> > {: .source}
+> > 
+> > ~~~
+> > MY_UID variable not specified, defaulting to cmsuser user id (1000)
+> > MY_GID variable not specified, defaulting to cmsuser user group id (1000)
+> > Mounting the filesystem "cms.cern.ch" ... DONE
+> > Mounting the filesystem "oasis.opensciencegrid.org" ... DONE
+> > Mounting the filesystem "sft.cern.ch" ... DONE
+> > Checking CVMFS mounts ... DONE
+> >     The following CVMFS folders have been successfully mounted:
+> >         cms.cern.ch
+> >         oasis.opensciencegrid.org
+> >         sft.cern.ch
+> > ~~~
+> > {: .output}
+> > 
+> > You need to have a port mapped in order to access the Jupyter server from outside of the container. We have chosen port `8888`, but you are free to choose a different port.
+> > 
+> > Take a look at the running containers and identify the container name and ID for the one you just spun up:
+> > 
+> > ~~~bash
+> > docker ps
+> > ~~~
+> > {: .source}
+> > 
+> > ~~~
+> > CONTAINER ID        IMAGE                              COMMAND             CREATED             STATUS              PORTS                      NAMES
+> > <CONTAINER_ID>        aperloff/cms-cvmfs-docker:latest   "/run.sh"           N minutes ago       Up N minutes        127.0.0.1:8888->8888/tcp   <CONTAINER_NAME>
+> > ~~~
+> > {: .output}
+> > 
+> > Next, we will open up a second view into the container so that we can interact with the container's file system on one and run the Jupyter server from the other. Make sure to use `docker exec` here, rather than `docker attach`, so that you can open up a new shell process. If you simply attach to the container your new prompt will be in the same shell process as the original one. Also, make sure to specify the same user as in the original shell. By default `docker exec` will enter the container as the `root` user rather than `cmsuser`.
+> > 
+> > ~~~bash
+> > docker exec -it --user=cmsuser <CONTAINER_NAME> /bin/bash
+> > ~~~
+> > {: .source}
+> > 
+> > Source the the relevant LCG environment in whichever prompt you prefer and then start the Jupyter server:
+> > 
+> > ~~~bash
+> > which jupyter
+> > source /cvmfs/sft.cern.ch/lcg/views/LCG_96python3/x86_64-centos7-gcc8-opt/setup.sh
+> > which jupyter
+> > jupyter notebook --ip 0.0.0.0 --no-browser --notebook-dir . --port 8888
+> > ~~~
+> > {: .source}
+> > 
+> > ~~~
+> > /usr/bin/which: no jupyter in (/cvmfs/oasis.opensciencegrid.org/mis/osg-wn-client/3.4/3.4.54/el6-x86_64/usr/bin:/cvmfs/oasis.opensciencegrid.org/mis/osg-wn-client/3.4/3.4.54/el6-x86_64/usr/sbin:/cvmfs/cms.cern.ch/common:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin)
+> > /cvmfs/sft.cern.ch/lcg/views/LCG_96python3/x86_64-centos7-gcc8-opt/bin/jupyter
+> > [I 04:53:32.923 NotebookApp] Writing notebook server cookie secret to /home/cmsuser/.local/share/jupyter/runtime/notebook_cookie_secret
+> > [I 04:53:50.245 NotebookApp] Serving notebooks from local directory: /home/cmsuser
+> > [I 04:53:50.245 NotebookApp] The Jupyter Notebook is running at:
+> > [I 04:53:50.245 NotebookApp] http://(0f8888173907 or 127.0.0.1):8888/?token=27fe7fba0ba5211333328ca3fb57960d5a119843fc81eb32
+> > [I 04:53:50.245 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+> > [C 04:53:50.322 NotebookApp]
+> > 
+> >     To access the notebook, open this file in a browser:
+> >         file:///home/cmsuser/.local/share/jupyter/runtime/nbserver-1256-open.html
+> >     Or copy and paste one of these URLs:
+> >         http://(0f8888173907 or 127.0.0.1):8888/?token=27fe7fba0ba5211333328ca3fb57960d5a119843fc81eb32
+> > ~~~
+> > {: .output}
+> > 
+> > From there you should follow the directions and enter the url `http:// 127.0.0.1:8888/?token=27fe7fba0ba5211333328ca3fb57960d5a119843fc81eb32` into your browser.
+> > 
+> {: .solution}
+{: .challenge}
+
 # Because we love our users ... you're welcome
 
 > ## The `cvmfs_docker` helper function
@@ -381,5 +463,7 @@ More information about this feature can be found in the images [GitHub README](h
 > > {: .output}
 > {: .solution}
 {: .testimonial}
+
+[jupyter-org]: https://jupyter.org/
 
 {% include links.md %}
