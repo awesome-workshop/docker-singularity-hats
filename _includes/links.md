@@ -56,6 +56,7 @@
 [batchdocs-containers]: https://batchdocs.web.cern.ch/containers/index.html
 [cms-containers]: https://gitlab.cern.ch/cms-cloud/cmssw-docker
 [cms-cloud-gitlab]: https://gitlab.cern.ch/cms-cloud/cmssw-docker/container_registry
+[cms-cloud-docker-hub]: https://hub.docker.com/u/cmscloud
 [singularity-docs]: https://sylabs.io/docs/
 [intro-docker-lesson]: https://awesome-workshop.github.io/intro-to-docker/
 [docker-cmsopendata]: https://hub.docker.com/u/cmsopendata

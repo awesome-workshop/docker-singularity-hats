@@ -15,10 +15,7 @@ keypoints:
 - "Privileged containers can be dangerous."
 - "You can mount CVMFS from within a container on container startup."
 ---
-An alternative to full CMSSW release images are Linux images that
-only contain the underlying base operating system (e.g. Scientific Linux 5/6/7
-or CentOS 7/8), including additionally required system packages. These images have a size of a few hundred Megabytes, but rely on a good
-network connection to access the CVMFS share.
+An alternative to full CMSSW release images are Linux images that only contain the underlying base operating system (e.g. Scientific Linux 5/6/7 or CentOS 7/8), including additionally required system packages. These images have a size of a few hundred Megabytes, but rely on a good network connection to access the CVMFS share.
 
 In order to use CVMFS via Docker, a couple of extra steps need to be taken.
 There are different approaches:
@@ -86,6 +83,10 @@ docker run -v /shared-mounts/cvmfs:/cvmfs:rslave -v $(pwd):$(pwd) -w $(pwd) --na
 # Mounting CVMFS inside the analysis container
 
 This method seems to work on OSX, Windows 10 Pro, and most Linux systems. For the most part, it does not rely on the host system configuration. The caveat is that the container runs with elevated privileges, but if you trust me, you can use it.
+
+Like the full CMSSW images, the centrally produced, light-weight images are created by a [build service (in development)][cms-containers] and are hosted at [CERN GitLab][cms-cloud-gitlab] and currently mirrored at [Docker Hub][cms-cloud-docker-hub].
+
+We can start by running one of these light weight images.
 
 ~~~
 docker run --rm -it --cap-add SYS_ADMIN --device /dev/fuse gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cvmfs bash

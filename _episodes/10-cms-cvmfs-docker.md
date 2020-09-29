@@ -14,7 +14,7 @@ keypoints:
 - "It has graphics support, CVMFS mount integrity support, and ID mapping support."
 - "It is Fermilab security compliant."
 ---
-**At the moment, this is the method I recommend!** This image has been developed for the most demanding of CMSSW use cases. It can do everything the previous containers do and then some. It's also been configured to comply with the Fermilab security policies, at least pre-COVID-19 (I haven't tested this lately). It is based on the Docker official `sl:7` image. The most up-to-date and comprehensive documentation can be found in the projects [GitHub README](https://github.com/aperloff/cms-cvmfs-docker/blob/master/README.md).
+**At the moment, this is the method I recommend!** This image has been developed for the most demanding of CMSSW use cases. It can do everything the previous containers do and then some. It's also been configured to comply with the Fermilab security policies, at least pre-COVID-19 (I haven't tested this lately). It is based on the Docker official `sl:7` image. The most up-to-date and comprehensive documentation can be found in the projects [GitHub README](https://github.com/aperloff/cms-cvmfs-docker/blob/master/README.md). The images themselves are built an stored on [Docker Hub](https://hub.docker.com/repository/docker/aperloff/cms-cvmfs-docker).
 
 The benefits of this image include:
 1. X11 and VNC support.
