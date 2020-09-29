@@ -149,8 +149,8 @@ Not only does that make sure people don't forget the typical options, but for so
 > >         cms.cern.ch
 > >         oasis.opensciencegrid.org
 > > 
-> > Enter GRID pass phrase:
-> > Your identity: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=aperloff/CN=702705/CN=Alexx Perloff
+> > Enter GRID pass phrase: ****
+> > Your identity: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=<username>/CN=<number>/CN=<Name>
 > > Creating temporary proxy .................................................................................... Done
 > > Contacting  voms2.cern.ch:15002 [/DC=ch/DC=cern/OU=computers/CN=voms2.cern.ch] "cms" Done
 > > Creating proxy ......................................................................................................... Done

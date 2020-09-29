@@ -20,7 +20,7 @@ keypoints:
 * Understand your build context -- the directory in which you issue the build command -- and know what's in it. Including extra files can unnecessarily bloat your image.
 * Understand why you're creating each layer in the container and make sure it is necessary.
 * Don’t install unnecessary packages. Beyond increasing the size of your image, these can open unintended security holes.
-* Decouple containers/applications when possible. This means you should have one massive container for every purpose. This isn't a hard rule, but simply helpful for speed and flexibility. This will also make it easier to secure your containers.
+* Decouple containers/applications when possible. This means you should *not* have one massive container for every purpose. This isn't a hard rule, but simply helpful for speed and flexibility. This will also make it easier to secure your containers.
 * Remember, to keep security in mind when choosing an image to run. If you have a choice of (base) images, run the more secure version.
 * Choose a specific tag for your base image, don't rely on the `latest` tag. Doing so may mean that your images changes on subsequent builds and is not necessarily using the (secure) image you intended.
 * Only provide as many permissions and capabilities as necessary to run the container. Limiting the capabilities of the container can significantly increase the security of said container.
@@ -45,6 +45,11 @@ That said, the user can choose to specify public ports and link containers or th
 By default the Docker daemon will bind open ports to the ip address 0.0.0.0. To change this default address you can either use the daemon directly using the command `dockerd --ip <ip_address>` or by going to *Preferences* -> *Docker Engine* and adding the line `"ip": "<ip_address>"`. It's a good practice to bind ports to the `localhost`, which is address `127.0.0.1`. This will prevent container ports from being bound to an arbitrary address.
 
 <img src="../fig/DockerEngine.png" alt="DockerEngine" style="width:800px">
+
+> ## Note for Linux users
+> If you're on Linux, Docker has its own table in `iptables`. If you have a host port which is firewalled or otherwise inaccessible, binding a port in Docker may silently open a hole in the firewall.
+> 
+{: .callout}
 
 # Container users [^5]
 
