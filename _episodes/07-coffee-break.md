@@ -1,7 +1,7 @@
 ---
 title: "Coffee Break"
 teaching: 0
-exercises: 15
+exercises: 10
 questions:
 - "Coffee or tea?"
 objectives:
