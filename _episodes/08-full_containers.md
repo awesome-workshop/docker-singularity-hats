@@ -15,7 +15,7 @@ keypoints:
 CMS does not have a concept of separating analysis software from the rest of
 the experimental software stack such as event generation, data taking, and
 reconstruction. This means that there is just one *CMSSW*, and the releases
-have a size of several Gigabytes (around 20 GB for the last releases).
+have a size of several Gigabytes (around 35 GB for the last releases).
 
 From the user's and computing point of view, this makes it very impractical to
 build and use images that contain a full CMSSW release. Imagine running
@@ -29,7 +29,9 @@ Because images that contain full CMSSW releases can be very big, CMS computing
 does not routinely build these images. However, as part of the
 [CMS Open Data effort][cms-opendata], images are provided for some releases.
 You can find those on [Docker Hub][docker-cmsopendata]. In addition, a
-[build service][cms-containers] is currently under development. Those images can be found on [CERN GitLab][cms-cloud-gitlab] and can be mirrored to [Docker Hub][cms-cloud-docker-hub] upon request.
+[build service][cmssw-docker-service] is provided, which you can use to
+request images. Those images can be found on [CERN GitLab][cms-cloud-gitlab]
+and can be mirrored to [Docker Hub][cms-cloud-docker-hub] upon request.
 
 If you would like to use these images, you can use them in the same way as
 any other CMS images (see next episode) with the only difference that the CMSSW software in the
@@ -43,7 +45,8 @@ docker run --rm -it cmsopendata/cmssw:10_6_8_patch1 /bin/zsh
 ~~~
 {: .language-bash}
 
-If you would like to use the images from the [CERN GitLab registry][cms-cloud-gitlab]:
+If you would like to use the images from the [CERN GitLab registry][cms-cloud-gitlab] 
+(this can be slow when outside CERN):
 
 ~~~
 docker run --rm -it gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21-slc7_amd64_gcc700:2020-09-22-ef834977 /bin/zsh
