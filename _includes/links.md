@@ -55,6 +55,7 @@
 [cms-singularity]: http://cms-sw.github.io/singularity.html
 [batchdocs-containers]: https://batchdocs.web.cern.ch/containers/index.html
 [cms-containers]: https://gitlab.cern.ch/cms-cloud/cmssw-docker
+[cmssw-docker-service]: https://cmssw-docker.web.cern.ch/
 [cms-cloud-gitlab]: https://gitlab.cern.ch/cms-cloud/cmssw-docker/container_registry
 [cms-cloud-docker-hub]: https://hub.docker.com/u/cmscloud
 [singularity-docs]: https://sylabs.io/docs/
@@ -64,7 +65,7 @@
 [gitlab-cms-lesson]: https://awesome-workshop.github.io/gitlab-cms/
 [gitlab-cms-lesson-running]: https://awesome-workshop.github.io/gitlab-cms/04-running/index.html
 [cms-cvmfs-csi]: https://gitlab.cern.ch/clange/cms-cvmfs-csi/
-[cvmfs-download]: https://cernvm.cern.ch/portal/filesystem/downloads
+[cvmfs-download]: https://cernvm.cern.ch/fs/#download
 [cvmfs-docker-docs]: https://cvmfs.readthedocs.io/en/stable/cpt-configure.html#docker-containers
-[cvmfs-quickstart]: https://cernvm.cern.ch/portal/filesystem/quickstart
+[cvmfs-quickstart]: https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html
 [payload-docker-cms]: https://gitlab.cern.ch/awesome-workshop/payload-docker-cms/

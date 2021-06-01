@@ -53,10 +53,10 @@ build_docker:
     - merge_requests
   tags:
     - docker-privileged
-  image: docker:19.03.1
+  image: docker:20.10.6
   services:
   # To obtain a Docker daemon, request a Docker-in-Docker service
-  - docker:19.03.1-dind
+  - docker:20.10.6-dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_BUILD_TOKEN $CI_REGISTRY
     # Need to start the automounter for CVMFS:
@@ -69,6 +69,11 @@ build_docker:
     - docker tag ${SHA256} ${TO}
     - docker push ${TO}
   variables:
+    # As of GitLab 12.5, privileged runners at CERN mount a /certs/client docker volume that enables use of TLS to
+    # communicate with the docker daemon. This avoids a warning about the docker service possibly not starting
+    # successfully.
+    # See https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#docker-in-docker-with-tls-enabled
+    DOCKER_TLS_CERTDIR: "/certs"
     FROM: gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms:latest
     TO: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
 ~~~
@@ -85,8 +90,8 @@ add `merge_requests` as in the example provided here.
 The next couple of lines are related to the special Docker-in-Docker runner.
 For this to work, the runner needs to be **privileged**, which is achieved by
 adding `docker-privileged` to the `tags`. The image to run is then
-`docker:19.03.1`, and in addition a special `service` with the name
-`docker:19.03.1-dind` is required.
+`docker:20.10.6`, and in addition a special `service` with the name
+`docker:20.10.6-dind` is required.
 
 Once the runner is up, the `before_script` section is used to prepare the
 setup for the following steps. First, the runner logs in to the GitLab image

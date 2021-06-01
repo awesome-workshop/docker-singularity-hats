@@ -82,9 +82,9 @@ docker run -v /shared-mounts/cvmfs:/cvmfs:rslave -v $(pwd):$(pwd) -w $(pwd) --na
 
 # Mounting CVMFS inside the analysis container
 
-This method seems to work on OSX, Windows 10 Pro, and most Linux systems. For the most part, it does not rely on the host system configuration. The caveat is that the container runs with elevated privileges, but if you trust me, you can use it.
+This method seems to work on OSX, Windows 10, and most Linux systems. For the most part, it does not rely on the host system configuration. The caveat is that the container runs with elevated privileges, but if you trust us, you can use it.
 
-Like the full CMSSW images, the centrally produced, light-weight images are created by a [build service (in development)][cms-containers] and are hosted at [CERN GitLab][cms-cloud-gitlab] and currently mirrored at [Docker Hub][cms-cloud-docker-hub].
+Like the full CMSSW images, the centrally produced, light-weight images are created by a [build service][cms-containers] and are hosted at [CERN GitLab][cms-cloud-gitlab] and currently mirrored at [Docker Hub][cms-cloud-docker-hub].
 
 We can start by running one of these light weight images.
 
@@ -100,7 +100,7 @@ If you get an error similar to:
 ~~~
 {: .output}
 
-you need to turn off SElinux security policy enforcing:
+you need to turn off SElinux security policy enforcing on your computer:
 
 ~~~
 sudo setenforce 0
@@ -131,24 +131,27 @@ cmsenv
 > {: .language-bash}
 {: .challenge}
 
-Currently there is something wrong with these centrally produced images when being run on OSX. You will most likely receive an error message, like the one below, when trying to start the container.
+You will most likely receive an error message, like the one below, when trying to start the container.
 ~~~
 chgrp: invalid group: 'fuse'
 ::: cvmfs-config...
 Failed to get D-Bus connection: Operation not permitted
 Failed to get D-Bus connection: Operation not permitted
 ::: mounting FUSE...
-Moint point /cvmfs/cms.cern.ch does not exist
-Moint point /cvmfs/cms-opendata-conddb.cern.ch does not exist
+CernVM-FS: running with credentials 998:995
+CernVM-FS: loading Fuse module... done
+CernVM-FS: mounted cvmfs on /cvmfs/cms.cern.ch
+CernVM-FS: running with credentials 998:995
+CernVM-FS: loading Fuse module... done
+CernVM-FS: mounted cvmfs on /cvmfs/cms-opendata-conddb.cern.ch
 ::: mounting FUSE... [done]
-::: Mounting CVMFS... [FAILED]
-::: Did you run the docker container in privileged mode?
+::: Mounting CVMFS... [done]
 ::: Setting up CMS environment...
-/opt/cms/entrypoint.sh: line 7: /cvmfs/cms.cern.ch/cmsset_default.sh: No such file or directory
+::: Setting up CMS environment... [done]
 ~~~
 {: .output}
 
-Nevertheless, these apparently work in Windows. They still print the error messages above, but the container is still able to mount CVMFS. This image hasn't been tested on Linux recently.
+Nevertheless, the image should still work. They still print the error messages above, but the container is still able to mount CVMFS. This image hasn't been tested on Linux recently.
 
 Current downsides to these images:
 1. If the mounting of CVMFS fails the image immediately exits. You must change the entrypoint in order to debug the issue.
@@ -166,5 +169,5 @@ Current downsides to these images:
 
 {% include links.md %}
 
-[wsl2]: https://docs.microsoft.com/en-us/windows/wsl/wsl2-install
-[wsl2-docker]: https://docs.docker.com/docker-for-windows/wsl-tech-preview/
+[wsl2]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+[wsl2-docker]: https://docs.docker.com/docker-for-windows/wsl/
