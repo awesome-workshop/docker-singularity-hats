@@ -26,7 +26,7 @@ While Docker Hub is maintained by Docker and is the defacto default registry for
 
 # Pulling Images
 
-To begin with we're going to [pull][docker-docs-pull] down the Docker image we're goingvto be working in for the tutorial (**Note:** If you did all the docker pulls in the setup instructions, this image will already be on your machine. In this case, docker should notice it's there and not attempt to re-pull it, unless the image has changed in the meantime.):
+To begin with we're going to [pull][docker-docs-pull] down the Docker image we're going to be working in for the tutorial (**Note:** If you did all the docker pulls in the setup instructions, this image will already be on your machine. In this case, docker should notice it's there and not attempt to re-pull it, unless the image has changed in the meantime.):
 
 ~~~bash
 docker pull sl
