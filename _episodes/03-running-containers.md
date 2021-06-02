@@ -273,14 +273,14 @@ ls -alh test.txt
 So this shows us that we can exit Docker containers for arbitrary lengths of time and then
 return to our working environment inside of them as desired.
 
->## Clean up a container
+> ## Clean up a container
 >
->If you want a container to be [cleaned up][docker-docs-run-clean-up] &mdash; that is deleted &mdash; after you exit it then run with the `--rm` option flag
+> If you want a container to be [cleaned up][docker-docs-run-clean-up] &mdash; that is deleted &mdash; after you exit it then run with the `--rm` option flag
 >
->~~~bash
->docker run --rm -it <IMAGE> /bin/bash
->~~~
->{: .source}
+> ~~~bash
+> docker run --rm -it <IMAGE> /bin/bash
+> ~~~
+> {: .source}
 {: .callout}
 
 # Stopping a container
