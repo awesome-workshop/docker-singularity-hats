@@ -119,6 +119,7 @@ exclude:
   - Makefile
   - bin/
   - .Rproj.user/
+  - vendor/bundle
 
 # Turn on built-in syntax highlighting.
 highlighter: rouge
