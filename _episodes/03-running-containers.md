@@ -19,6 +19,12 @@ keypoints:
 - "Restart stopped containers with `docker start`"
 ---
 
+<figure align="right" style="display: table; margin: 0; text-align: center;">
+<iframe scrolling="no"  src="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-005" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+<br/>
+<figcaption style="display: table-caption; caption-side: bottom; background: pink; padding: 10px;">Recording of the HATS@LPC2020 session (<a href="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-005">link</a>). Note, you must have a CERN login to watch this video.</figcaption>
+</figure>
+
 To use a Docker image as a particular instance on a host machine you [run][docker-docs-run] it as a container. You can run in either a [detached or foreground][docker-docs-run-detached] (interactive) mode.
 
 Run the image we pulled as a container with an interactive bash terminal:

@@ -19,6 +19,12 @@ keypoints:
 - "You can run many containers simultaneously on a single host machine."
 ---
 
+<figure align="right" style="display: table; margin: 0; text-align: center;">
+<iframe scrolling="no"  src="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-002" width="560" height="315" frameborder="0" allowfullscreen style="max-width: 100%;"></iframe>
+<br/>
+<figcaption style="display: table-caption; caption-side: bottom; background: pink; padding: 10px;">Recording of the HATS@LPC2020 session (<a href="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-002">link</a>). Note, you must have a CERN login to watch this video.</figcaption>
+</figure>
+
 # Containers and Images
 
 Containers are like lightweight virtual machines. They behave as if they were their own complete OS, but actually only contain the components necessary to operate. Instead, containers share the host machine's system kernel, significantly reducing their size. In essence, they run a second OS natively on the host machine with just a thin additional layer, which means they can be faster than traditional virtual machines. These container only take up as much memory as necessary, which allows many of them to be run simultaneously and they can be spun up quite rapidly.

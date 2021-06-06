@@ -13,6 +13,12 @@ keypoints:
 - "Perform faster cleanup with `docker container prune`, `docker image prune`, and `docker system prune`"
 ---
 
+<figure align="right" style="display: table; margin: 0; text-align: center;">
+<iframe scrolling="no"  src="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-004" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+<br/>
+<figcaption style="display: table-caption; caption-side: bottom; background: pink; padding: 10px;">Recording of the HATS@LPC2020 session (<a href="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-004">link</a>). Note, you must have a CERN login to watch this video.</figcaption>
+</figure>
+
 You can cleanup/remove a container [`docker rm`][docker-docs-rm]
 ~~~bash
 docker rm <CONTAINER NAME>

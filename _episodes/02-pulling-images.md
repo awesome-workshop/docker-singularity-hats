@@ -16,6 +16,12 @@ keypoints:
 - "The default registry is Docker Hub"
 ---
 
+<figure align="right" style="display: table; margin: 0; text-align: center;">
+<iframe scrolling="no"  src="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-003" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+<br/>
+<figcaption style="display: table-caption; caption-side: bottom; background: pink; padding: 10px;">Recording of the HATS@LPC2020 session (<a href="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-003">link</a>). Note, you must have a CERN login to watch this video.</figcaption>
+</figure>
+
 # Docker Hub and Image Registries
 
 Much like GitHub allows for web hosting and searching for code, the [Docker Hub][docker-hub] image registry allows the same for Docker images. Hosting and building of images is [free for public repositories][docker-hub-billing] and allows for downloading images as they are needed. Additionally, through integrations with GitHub and Bitbucket, Docker Hub repositories can be linked against Git repositories so that [automated builds of Dockerfiles on Docker Hub][docker-hub-builds] will be triggered by pushes to repositories.

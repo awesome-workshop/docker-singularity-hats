@@ -12,6 +12,12 @@ keypoints:
 - "Mount a folder/file inside a container using `-v <host path>:<container path>`"
 ---
 
+<figure align="right" style="display: table; margin: 0; text-align: center;">
+<iframe scrolling="no"  src="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-001" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+<br/>
+<figcaption style="display: table-caption; caption-side: bottom; background: pink; padding: 10px;">Recording of the HATS@LPC2020 session (<a href="https://videos.cern.ch/video/OPEN-VIDEO-2021-119-001">link</a>). Note, you must have a CERN login to watch this video.</figcaption>
+</figure>
+
 # Copying
 
 [Copying][docker-docs-cp] files between the local host and Docker containers is possible. On your local host find a file that you want to transfer to the container and then
