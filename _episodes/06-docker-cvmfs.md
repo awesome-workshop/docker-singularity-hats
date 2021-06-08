@@ -81,26 +81,34 @@ docker run -v /shared-mounts/cvmfs:/cvmfs:rslave -v $(pwd):$(pwd) -w $(pwd) --na
 > The CVMFS cache will remain as long as the container is around. If the container is removed, so will the cache. This means it could take longer for commands to run the first time they are called after mounting CVMFS. This same caveat holds true for the methods which are discussed below.
 {: .callout}
 
+# Images which can take advantage of host/container shared CVMFS
+
+There are many centrally produced images to suite the needs of CMSSW analyzers. Many of these images are built by either a centrally supported build service called [cms-cloud][cms-containers] or by the team which develops CMSSW. The [cms-cloud][cms-containers] images are built on CERN GitLab runners and the pushed to the relevant registries. They come in a vast variety of OS, architectures, capabilities, an sizes. The known varieties of images suitable for CMS development, but which don't come with CVMFS capabilities of their own are:
+
+| Source | Image | Tags | Registry |
+| :--- | :--- | :--- | :--- |
+| cmssw | cc8 | amd64\*, aarch64\*, ppc64le* | [DockerHub](https://hub.docker.com/r/cmssw/cc8) |
+| cmssw | cc7 | amd64\*, aarch64\*, ppc64le\*, bootstrap | [DockerHub](https://hub.docker.com/r/cmssw/cc7) |
+| cmssw | slc7-installer | latest | [DockerHub](https://hub.docker.com/r/cmssw/slc7-installer) |
+| cmssw | slc6 | latest, amd64\* | [DockerHub](https://hub.docker.com/r/cmssw/slc6) |
+| cmssw | slc5 | latest | [DockerHub](https://hub.docker.com/r/cmssw/slc5) |
+| cmssw | cms | rhel7, rhel6, rhel7-m\*, rhel6-m\* | [DockerHub](https://hub.docker.com/r/cmssw/cmssw) |
+| cms-cloud | cc7-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+| cms-cloud | slc6-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+| cms-cloud | slc5-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+
+Note that the [cms-cloud][cms-containers] versions contain updated/additional packages which are useful for interactive development and have a nicer shell prompt.
+
 # Mounting CVMFS inside the analysis container
 
 This method seems to work on OSX, Windows 10, and most Linux systems. For the most part, it does not rely on the host system configuration. The caveat is that the container runs with elevated privileges, but if you trust us, you can use it.
 
-There are many centrally produced images to suite the needs of CMSSW analyzers. Many of these images are built by a centrally supported build service called [cms-cloud][cms-containers]. The images are built on CERN GitLab runners and the pushed to the relevant registries. They come in a vast variety of OS, architectures, capabilities, an sizes. The known varieties of light-weight, CVMFS capable images are:
+The known varieties of light-weight, CVMFS capable cms-cloud images are:
 
-| Image | Tags | Registry |
-| :--- | :--- | :--- |
-| cc7-cvmfs | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
-| cc7-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
-| slc6-cvmfs | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
-| slc6-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
-| slc5-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
-
-<!-- | cc8 | amd64\*, aarch64\*, ppc64le* | [DockerHub](https://hub.docker.com/r/cmssw/cc8) |
-| cc7 | amd64\*, aarch64\*, ppc64le\*, bootstrap | [DockerHub](https://hub.docker.com/r/cmssw/cc7) |
-| slc7-installer | latest | [DockerHub](https://hub.docker.com/r/cmssw/slc7-installer) |
-| slc6 | latest, amd64\* | [DockerHub](https://hub.docker.com/r/cmssw/slc6) |
-| slc5 | latest | [DockerHub](https://hub.docker.com/r/cmssw/slc5) |
-| cms | rhel7, rhel6, rhel7-m\*, rhel6-m\* | [DockerHub](https://hub.docker.com/r/cmssw/cmssw) | -->
+| Source | Image | Tags | Registry |
+| :--- | :--- | :--- | :--- |
+| cms-cloud | cc7-cvmfs | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+| cms-cloud | slc6-cvmfs | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
 
 We can start by running one of these light weight images.
 
