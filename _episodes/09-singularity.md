@@ -1,6 +1,6 @@
 ---
 title: "Running Containers on CMSLPC/LXPLUS Using Singularity"
-teaching: 15
+teaching: 20
 exercises: 10
 questions:
 - "How can I run a container on CMSLPC/LXPLUS?"

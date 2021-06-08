@@ -1,6 +1,6 @@
 ---
 title: "Container Security"
-teaching: 10
+teaching: 20
 exercises: 0
 questions:
 - "What are the best practices when it comes to container security?"

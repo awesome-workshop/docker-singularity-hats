@@ -1,6 +1,6 @@
 ---
 title: "Accessing CVMFS From Docker Locally"
-teaching: 10
+teaching: 20
 exercises: 25
 questions:
 - "How can I access CVMFS from my computer?"
