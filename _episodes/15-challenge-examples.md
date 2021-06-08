@@ -1,5 +1,5 @@
 ---
-title: "Bonus: SSH Credentials"
+title: "SSH Credentials"
 teaching: 0
 exercises: 10
 questions:

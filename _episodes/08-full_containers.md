@@ -38,20 +38,22 @@ any other CMS images (see next episode) with the only difference that the CMSSW 
 container is in `/opt/cms` and not within `/cvmfs/cms.cern.ch`. The ability to partially replicate the `/cvmfs/cms.cern.ch` directory within these containers is under development. The goal being to have the same paths to CMSSW regardless of the way in which CMSSW is accessed within the container.
 
 You can run the containers as follows (pick either `bash` or `zsh`) when
-using the version published on [Docker Hub][docker-cmsopendata]:
+using the cmsopendata version published on [Docker Hub][docker-cmsopendata]:
 
 ~~~
 docker run --rm -it cmsopendata/cmssw:10_6_8_patch1 /bin/zsh
 ~~~
 {: .language-bash}
 
-If you would like to use the images from the [CERN GitLab registry][cms-cloud-gitlab] 
+If you would like to use the cms-cloud images from the [CERN GitLab registry][cms-cloud-gitlab] 
 (this can be slow when outside CERN):
 
 ~~~
-docker run --rm -it gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21-slc7_amd64_gcc700:2020-09-22-ef834977 /bin/zsh
+docker run --rm -it gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_6_25-slc7_amd64_gcc700:latest /bin/zsh
 ~~~
 {: .language-bash}
+
+Note, just recently the cms-cloud images have started to be mirrored on [Docker Hub](https://hub.docker.com/r/cmscloud/standalone).
 
 > ## Do not use for large-scale job submission nor on GitLab!
 >

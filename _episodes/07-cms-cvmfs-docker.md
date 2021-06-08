@@ -28,9 +28,10 @@ The benefits of this image include:
     * sft.cern.ch
     * cms-bril.cern.ch
     * cms-opendata-conddb.cern.ch
+    * ilc.desy.de
 5. The ability to mount all, a subset, or none of the CVMFS mount points.
 6. The image still allows access even if CVMFS is unreachable.
-7. No ability to `sudo`. Better for security, but sometimes a pain.
+7. No ability to `sudo`. This is better for security, but sometimes a pain, especially if you need to install some software and there is no user level installation available.
 
 # Basics
 
@@ -98,7 +99,7 @@ Checking CVMFS mounts ... DONE
 
 # Getting a grid certificate
 
-The problem with getting a grid certificate is that it relies on private information (i.e. the certificate files) and a set of folder/file permissions. We don't want to build these files into the image (**remember the lesson on [image security]({{ page.root }}{% link _episodes/06-security.md %})!**). We also don't want the cumbersome task of copying the file(s) into the container every time we want to use them. Even if we did that, we'd need to set the permissions, so it would be a multi-step task. To top it all off, once the certificate files are in the container, you still can't use them because the files are tied to the UID and GID of the user who created them.
+The problem with getting a grid certificate is that it relies on private information (i.e. the certificate files) and a set of folder/file permissions. We don't want to build these files into the image (**see the lesson on [image security]({{ page.root }}{% link _episodes/11-security.md %})!**). We also don't want the cumbersome task of copying the file(s) into the container every time we want to use them. Even if we did that, we'd need to set the permissions, so it would be a multi-step task. To top it all off, once the certificate files are in the container, you still can't use them because the files are tied to the UID and GID of the user who created them.
 
 *Have I convinced you yet that we need a better solution?*
 
@@ -166,7 +167,7 @@ Not only does that make sure people don't forget the typical options, but for so
 
 # X11 support
 
-It's often useful to display graphical windows which originate from within the container. in order to do so, we will need some components in place first. You will need to have a properly configured X Window System. There are some notes about this in the [setup directions]({{ page.root }}{% link setup.md %}). We also recommend restricting the default ip address to `127.0.0.1` as specified in the `Ports` section of the [image security lesson]({{ page.root }}{% link _episodes/06-security.md %}).
+It's often useful to display graphical windows which originate from within the container. in order to do so, we will need some components in place first. You will need to have a properly configured X Window System. There are some notes about this in the [setup directions]({{ page.root }}{% link setup.md %}). We also recommend restricting the default ip address to `127.0.0.1` as specified in the `Ports` section of the [image security lesson]({{ page.root }}{% link _episodes/11-security.md %}).
 
 If you would like to display X11 windows on the host machine which originate inside the container you will need to add the option `-e DISPLAY=host.docker.internal:0`, which will give you a command like:
 

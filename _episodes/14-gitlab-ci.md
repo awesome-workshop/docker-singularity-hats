@@ -1,5 +1,5 @@
 ---
-title: "Bonus: Gitlab CI for Automated Environment Preservation"
+title: "Gitlab CI for Automated Environment Preservation"
 teaching: 25
 exercises: 25
 questions:

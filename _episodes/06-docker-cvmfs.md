@@ -15,7 +15,8 @@ keypoints:
 - "Privileged containers can be dangerous."
 - "You can mount CVMFS from within a container on container startup."
 ---
-An alternative to full CMSSW release images are Linux images that only contain the underlying base operating system (e.g. Scientific Linux 5/6/7 or CentOS 7/8), including additionally required system packages. These images have a size of a few hundred Megabytes, but rely on a good network connection to access the CVMFS share.
+
+The light-weight, and most commonly used, images for accessing the CMS software stack are Linux images that only contain the underlying base operating system (e.g. Scientific Linux 5/6/7 or CentOS 7/8), including additionally required system packages. These images have a size of a few hundred Megabytes, but rely on a good network connection to access the CVMFS share. The connection to CVMFS is crucial for accessing CMSSW, its external components, and the local GitHub mirrors.
 
 In order to use CVMFS via Docker, a couple of extra steps need to be taken.
 There are different approaches:
@@ -77,14 +78,29 @@ docker run -v /shared-mounts/cvmfs:/cvmfs:rslave -v $(pwd):$(pwd) -w $(pwd) --na
 
 > ## The downside to mounting CVMFS inside a container
 >
-> 1. The CVMFS cache will remain as long as the container is around. If the container is removed, so will the cache. This means it could take longer for commands to run the first time they are called after mounting CVMFS. This same caveat holds true for the methods which are discussed below.
+> The CVMFS cache will remain as long as the container is around. If the container is removed, so will the cache. This means it could take longer for commands to run the first time they are called after mounting CVMFS. This same caveat holds true for the methods which are discussed below.
 {: .callout}
 
 # Mounting CVMFS inside the analysis container
 
 This method seems to work on OSX, Windows 10, and most Linux systems. For the most part, it does not rely on the host system configuration. The caveat is that the container runs with elevated privileges, but if you trust us, you can use it.
 
-Like the full CMSSW images, the centrally produced, light-weight images are created by a [build service][cms-containers] and are hosted at [CERN GitLab][cms-cloud-gitlab] and currently mirrored at [Docker Hub][cms-cloud-docker-hub].
+There are many centrally produced images to suite the needs of CMSSW analyzers. Many of these images are built by a centrally supported build service called [cms-cloud][cms-containers]. The images are built on CERN GitLab runners and the pushed to the relevant registries. They come in a vast variety of OS, architectures, capabilities, an sizes. The known varieties of light-weight, CVMFS capable images are:
+
+| Image | Tags | Registry |
+| :--- | :--- | :--- |
+| cc7-cvmfs | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+| cc7-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+| slc6-cvmfs | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+| slc6-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+| slc5-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+
+<!-- | cc8 | amd64\*, aarch64\*, ppc64le* | [DockerHub](https://hub.docker.com/r/cmssw/cc8) |
+| cc7 | amd64\*, aarch64\*, ppc64le\*, bootstrap | [DockerHub](https://hub.docker.com/r/cmssw/cc7) |
+| slc7-installer | latest | [DockerHub](https://hub.docker.com/r/cmssw/slc7-installer) |
+| slc6 | latest, amd64\* | [DockerHub](https://hub.docker.com/r/cmssw/slc6) |
+| slc5 | latest | [DockerHub](https://hub.docker.com/r/cmssw/slc5) |
+| cms | rhel7, rhel6, rhel7-m\*, rhel6-m\* | [DockerHub](https://hub.docker.com/r/cmssw/cmssw) | -->
 
 We can start by running one of these light weight images.
 
@@ -119,45 +135,81 @@ This can be changed permanently by editing `/etc/selinux/config`, setting `SELIN
 > 1. The automounting capabilities are up to the image creator and not provided by the CVMFS development team.
 {: .callout}
 
-> ## Exercise: Give it a try!
-> Try if you can run the following command from your cloned repository base
-> directory:
+> ## Exercise: Give the image a try!
+> Try to run the following command:
 > ~~~
 docker run --rm -it --cap-add SYS_ADMIN --device /dev/fuse gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cvmfs:latest bash
-cmsrel CMSSW_10_2_21
-cd CMSSW_10_2_21/src/
-cmsenv
 > ~~~
 > {: .language-bash}
+> You will most likely receive an error message, like the one below, when trying to start the container.
+> ~~~
+> chgrp: invalid group: 'fuse'
+> ::: cvmfs-config...
+> Failed to get D-Bus connection: Operation not permitted
+> Failed to get D-Bus connection: Operation not permitted
+> ::: mounting FUSE...
+> CernVM-FS: running with credentials 998:995
+> CernVM-FS: loading Fuse module... done
+> CernVM-FS: mounted cvmfs on /cvmfs/cms.cern.ch
+> CernVM-FS: running with credentials 998:995
+> CernVM-FS: loading Fuse module... done
+> CernVM-FS: mounted cvmfs on /cvmfs/cms-opendata-conddb.cern.ch
+> ::: mounting FUSE... [done]
+> ::: Mounting CVMFS... [done]
+> ::: Setting up CMS environment...
+> ::: Setting up CMS environment... [done]
+> ~~~
+> {: .output}
+> Nevertheless, the image should still work. Although the container will print the error messages above, it is still able to mount CVMFS. One caveat is that this image hasn't been tested on Linux recently.
 {: .challenge}
-
-You will most likely receive an error message, like the one below, when trying to start the container.
-~~~
-chgrp: invalid group: 'fuse'
-::: cvmfs-config...
-Failed to get D-Bus connection: Operation not permitted
-Failed to get D-Bus connection: Operation not permitted
-::: mounting FUSE...
-CernVM-FS: running with credentials 998:995
-CernVM-FS: loading Fuse module... done
-CernVM-FS: mounted cvmfs on /cvmfs/cms.cern.ch
-CernVM-FS: running with credentials 998:995
-CernVM-FS: loading Fuse module... done
-CernVM-FS: mounted cvmfs on /cvmfs/cms-opendata-conddb.cern.ch
-::: mounting FUSE... [done]
-::: Mounting CVMFS... [done]
-::: Setting up CMS environment...
-::: Setting up CMS environment... [done]
-~~~
-{: .output}
-
-Nevertheless, the image should still work. They still print the error messages above, but the container is still able to mount CVMFS. This image hasn't been tested on Linux recently.
 
 Current downsides to these images:
 1. If the mounting of CVMFS fails the image immediately exits. You must change the entrypoint in order to debug the issue.
 1. If the CVMFS daemon is interrupted there is no automatic way to reconnect.
 1. The container has sudo privileges. In other words, the user permissions can be elevated. Not necessarily a bad thing, but something to be aware of.
 1. There is little to no support for X11 or VNC.
+
+> ## Exercise: Simple workflow (if needed)
+> I recommend taking a look around the light-weight container once you have it up and running; check out its capabilities. If you need a simple example workflow, feel free to use the one below.
+> 
+> > ## Workflow
+> > ~~~
+> > echo $SCRAM_ARCH
+> > scramv1 list CMSSW
+> > # Note, this next step might take a moment to run the first time (~3 minutes)
+> > cmsrel CMSSW_10_6_25
+> > ls
+> > cd CMSSW_10_6_25/src/
+> > cmsenv
+> > echo $CMSSW_BASE
+> > git config --global user.name 'J Doe'
+> > git config --global user.email 'j.doe@lpchats2021.gov'
+> > git config --global user.github jdoe
+> > # This next command will also take a while the first time (~10 minutes)
+> > git-cms-init
+> > ls -alh
+> > scram b
+> > # Example taken from "SWGuide - 6.2 Generating Events - Sample Configuration Files for the Particle Gun"
+> > #  https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGeneration#SampleConfig
+> > cmsDriver.py Configuration/Generator/python/SingleElectronPt10_pythia8_cfi.py -s GEN --conditions auto:mc --datatier 'GEN-SIM-RAW' --eventcontent RAWSIM -n 10 --no_exec --python_filename SingleElectronPt10_pythia8_cfi_py_GEN_IDEAL.py
+> > # This next command will also take a while the first time (~10 minutes)
+> > cmsRun SingleElectronPt10_pythia8_cfi_py_GEN_IDEAL.py
+> > ls -alh
+> > edmDumpEventContent SingleElectronPt10_pythia8_cfi_py_GEN.root
+> > root -l -b SingleElectronPt10_pythia8_cfi_py_GEN.root
+> > Events->Show(0)
+> > Events->Draw("recoGenJets_ak4GenJetsNoNu__GEN.obj.pt()")
+> > c1->SaveAs("ak4GenJetsNoNuPt.png")
+> > .q
+> > ~~~
+> >{: .language-bash}
+> > You can then copy the resulting PNG out of the container using:
+> > ~~~
+> > docker cp <container name>:/home/cmsusr/CMSSW_10_6_25/src/ak4GenJetsNoNuPt.png <local path>
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
+{: .challenge}
 
 > ## Developing CMS code on your laptop
 >

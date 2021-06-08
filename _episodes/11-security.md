@@ -65,7 +65,7 @@ Unless it's necessary for your containerized application, it's probably not a go
 
 # Base image choice
 
-Not everyone will build a Docker image. However, for those of you that do it is important to keep in mind the capabilities and security of your chosen base image. Many of the systems we use at labs and universities are security hardened versions of commercial Linux distributions (i.e. [Scientific Linux][scientific-linux]). Often it is possible to use these specific Linux distributions as base images (i.e. [Official containers for Scientific Linux(SL)][docker-hub-sl]). Using one of these images is recommended as you will need to do far fewer manual modifications in order to secure your container.
+Not everyone will build a Docker image. However, for those of you that do it is important to keep in mind the capabilities and security of your chosen base image. Many of the systems we use at labs and universities are security hardened versions of commercial Linux distributions (i.e. [Scientific Linux][scientific-linux]). Often it is possible to use these specific Linux distributions as base images (i.e. [Official containers for Scientific Linux (SL)][docker-hub-sl]). Using one of these images is recommended as you will need to do far fewer manual modifications in order to secure your container.
 
 If you're using a base image which has an unverified provenance, you may want to: [^2]
 * find out how the image was created and know what packages are installed into the image.

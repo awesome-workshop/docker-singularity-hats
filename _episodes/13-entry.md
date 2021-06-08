@@ -1,5 +1,5 @@
 ---
-title: "Bonus: Using CMD and ENTRYPOINT in Dockerfiles"
+title: "Using CMD and ENTRYPOINT in Dockerfiles"
 teaching: 0
 exercises: 0
 questions:

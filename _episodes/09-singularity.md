@@ -21,9 +21,7 @@ keypoints:
 
 One thing that has not been covered in detail is that containers do not
 necessarily have to be executed using Docker. While Docker is the most popular containerization tool these days, there are several so-called
-container run-times that allow the execution of containers. CMS uses
-[Singularity][singularity-docs] for sample production, and the
-[use of Singularity is also centrally supported and documented][cms-singularity]. The main reason for choosing Singularity is that it is popular in high-performance and high-throughput computing and does not require any root privileges.
+container run-times that allow the execution of containers. The one chosen by CMS for invisibly running CRAB/HTCondor pilot jobs is [Singularity][singularity-docs], which is [centrally supported and documented][cms-singularity]. The main reason for choosing Singularity is that it is popular in high-performance and high-throughput computing and does not require any root privileges.
 
 While executing images on CMSLPC/LXPLUS and HTCondor is more practical with
 Singularity, running in GitLab CI is by default done using Docker. Since
@@ -55,23 +53,25 @@ runs Singularity. The nice thing about Singularity is that you can
 mount `/cvmfs`, `/eos`, and `/afs` without any workarounds. This is
 automatically done when running the `cmssw-env` command.
 
-<!--
-> ## Exercise: Run the CC7 Singularity container
+> ## Exercise: Run the CC8 Singularity container
 >
-> Confirm that you can access your EOS home directory
-> (`/eos/user/${USER:0:1}/${USER}`) from the Singularity CC7 shell.
+> Confirm that you can access your home directory (`~` or `${HOME}`), EOS area
+> (`/eos/uscms/store/user/${USER}` on cmslpc), and 'nobackup' directory (`${HOME}/nobackup` on cmslpc) from within the Singularity CC8 shell.
 >
-> > ## Solution: Run the CC7 Singularity container
+> > ## Solution: Run the CC8 Singularity container
 > >
 > > ~~~bash
-> > cmssw-cc7 --bind `readlink $HOME` --bind `readlink -f ${HOME}/nobackup/` --bind /cvmfs
-> > ls /eos/uscms/store/user/${USER} #CMSLPC
+> > cat /etc/redhat-release
+> > cmssw-cc8 --bind `readlink -f ${HOME}/nobackup/`
+> > cat /etc/redhat-release
+> > ls /eos/uscms/store/user/${USER}
+> > ls ${HOME}
+> > ls ${HOME}/nobackup
 > > exit
 > > ~~~
 > > {: .source}
 > {: .solution}
 {: .challenge}
--->
 
 # Running custom images with Singularity
 
@@ -93,17 +93,17 @@ source /cvmfs/cms.cern.ch/cmsset_default.sh
 INFO:    Converting OCI blobs to SIF format
 INFO:    Starting build...
 Getting image source signatures
-Copying blob d72e567cc804 done
-Copying blob 0f3630e5ff08 done
-Copying blob b6a83d81d1f4 done
-Copying config bbea2a0436 done
+Copying blob 345e3491a907 done
+Copying blob 57671312ef6f done
+Copying blob 5e9250ddb7d0 done
+Copying config 7c6bc52068 done
 Writing manifest to image destination
 Storing signatures
-2020/09/27 23:48:29  info unpack layer: sha256:d72e567cc804d0b637182ba23f8b9ffe101e753a39bf52cd4db6b89eb089f13b
-2020/09/27 23:48:31  info unpack layer: sha256:0f3630e5ff08d73b6ec0e22736a5c8d2d666e7b568c16f6a4ffadf8c21b9b1ad
-2020/09/27 23:48:31  info unpack layer: sha256:b6a83d81d1f4f942d37e1f17195d9c519969ed3040fc3e444740b884e44dec33
+2021/06/08 01:10:42  info unpack layer: sha256:345e3491a907bb7c6f1bdddcf4a94284b8b6ddd77eb7d93f09432b17b20f2bbe
+2021/06/08 01:10:44  info unpack layer: sha256:57671312ef6fdbecf340e5fed0fb0863350cd806c92b1fdd7978adbd02afc5c3
+2021/06/08 01:10:44  info unpack layer: sha256:5e9250ddb7d0fa6d13302c7c3e6a0aa40390e42424caed1e5289077ee4054709
 INFO:    Creating SIF file...
-INFO:    Convert SIF file to sandbox...
+INFO:    Converting SIF file to temporary sandbox...
 WARNING: underlay of /etc/localtime required more than 50 (66) bind mounts
 ~~~
 {: .output}
@@ -160,17 +160,17 @@ singularity build --sandbox ubuntu/ docker://ubuntu:latest
 ~~~
 INFO:    Starting build...
 Getting image source signatures
-Copying blob d72e567cc804 skipped: already exists
-Copying blob 0f3630e5ff08 skipped: already exists
-Copying blob b6a83d81d1f4 [--------------------------------------] 0.0b / 0.0b
-Copying config bbea2a0436 done
+Copying blob 345e3491a907 skipped: already exists
+Copying blob 57671312ef6f skipped: already exists
+Copying blob 5e9250ddb7d0 [--------------------------------------] 0.0b / 0.0b
+Copying config 7c6bc52068 done
 Writing manifest to image destination
 Storing signatures
-2020/09/28 00:14:16  info unpack layer: sha256:d72e567cc804d0b637182ba23f8b9ffe101e753a39bf52cd4db6b89eb089f13b
-2020/09/28 00:14:17  warn xattr{etc/gshadow} ignoring ENOTSUP on setxattr "user.rootlesscontainers"
-2020/09/28 00:14:17  warn xattr{/uscms_data/d2/aperloff/rootfs-7379bde5-0149-11eb-9685-001a4af11eb0/etc/gshadow} destination filesystem does not support xattrs, further warnings will be suppressed
-2020/09/28 00:14:38  info unpack layer: sha256:0f3630e5ff08d73b6ec0e22736a5c8d2d666e7b568c16f6a4ffadf8c21b9b1ad
-2020/09/28 00:14:38  info unpack layer: sha256:b6a83d81d1f4f942d37e1f17195d9c519969ed3040fc3e444740b884e44dec33
+2021/06/08 01:13:24  info unpack layer: sha256:345e3491a907bb7c6f1bdddcf4a94284b8b6ddd77eb7d93f09432b17b20f2bbe
+2021/06/08 01:13:24  warn xattr{etc/gshadow} ignoring ENOTSUP on setxattr "user.rootlesscontainers"
+2021/06/08 01:13:24  warn xattr{/uscms_data/d2/aperloff/build-temp-220308461/rootfs/etc/gshadow} destination filesystem does not support xattrs, further warnings will be suppressed
+2021/06/08 01:13:47  info unpack layer: sha256:57671312ef6fdbecf340e5fed0fb0863350cd806c92b1fdd7978adbd02afc5c3
+2021/06/08 01:13:47  info unpack layer: sha256:5e9250ddb7d0fa6d13302c7c3e6a0aa40390e42424caed1e5289077ee4054709
 INFO:    Creating sandbox directory...
 INFO:    Build complete: ubuntu/
 ~~~
@@ -219,7 +219,7 @@ singularity shell -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` docker:
 There are three GPUs available for use at the LPC. Rather than installing the myriad of packages necessary for machine learning on the bare-metal machines or manually synchronizing an Anaconda distribution to CVMFS (as done in the past), custom Singularity images have been built for this purpose.
 
 Currently we have three images built and ready to use:
-1. [PyTorch][pytorch] 1.5 w/ CUDA 10.1 ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/PyTorch/Dockerfile))
+1. [PyTorch][pytorch] 1.8.1 w/ CUDA 11.1 ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/PyTorch/Dockerfile))
 1. [TensorFlow][tensorflow] (GPU) 2.3.0 w/ development libraries ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/TensorFlow/Dockerfile))
 1. [TensorFlow][tensorflow] (GPU) 2.3.0 w/o development libraries ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/TensorFlow/Dockerfile))
 
@@ -234,12 +234,75 @@ Of course there are many more packages installed in these images than just PyTor
 > 
 > You can start Jupyter Notebook using the `singularity exec` command, passing the directive `jupyter notebook --no-browser --port <port_number>` at the end of the command. Singularity, unlike Docker, doesn't require explicit port mapping. For example:
 > ~~~bash
-> singularity exec --nv --bind $PWD:/run/user /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:pytorch-1.5-cuda10.1-cudnn7-runtime-singularity jupyter notebook --no-browser --port 1234
+> singularity exec --nv --bind $PWD:/run/user --bind `readlink -f ${HOME}/nobackup/` /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:pytorch-1.8.1-cuda11.1-cudnn8-runtime-singularity jupyter notebook --no-browser --port 1234
 > ~~~
 > {: .source}
 {: .callout}
 
 A word of warning, these images are rather large (about 5 GB compressed). For that reason, it would be prohibitively expensive to make each user download, convert, and uncompress the images. Therefore, the unpacked sandboxes are stored on CVMFS at `/cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/`. The service which does the unpacking and uploading to CVMFS will be discussed in detail in the next lesson. For now we'll just say, use the unpacked images if working with Singularity.
+
+> ## Exercise: PyTorch workflow
+> Try to run a simple PyTorch workflow on a machine with a GPU
+> > ## Solution
+> > Log into one of the cmslpc GPU nodes and start a PyTorch container.
+> > ~~~bash
+> > ssh -Y <username>@cmslpcgpu<2-3>.fnal.gov
+> > export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/Singularity"
+> > singularity shell --nv --bind $PWD:/run/user --bind `readlink -f ${HOME}/nobackup/` /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:pytorch-1.8.1-cuda11.1-cudnn8-runtime-singularity
+> > ~~~
+> > {: .source}
+> > Create a script called `testPytorch.py` which has the following content:
+> > ~~~python
+> > #!/usr/bin/env python
+> >
+> > import torch
+> > from datetime import datetime
+> > 
+> > print("torch.version.cuda = ",torch.version.cuda)
+> > print("torch._C._cuda_getCompiledVersion() = ",torch._C._cuda_getCompiledVersion())
+> >
+> > for i in range(10):
+> >     x = torch.randn(10, 10, 10, 10) # similar timings regardless of the tensor size
+> >     t1 = datetime.now()
+> >     x.cuda()
+> >     print(i, datetime.now() - t1)
+> > ~~~
+> > {: .source}
+> > Execute that script using:
+> > ~~~bash
+> > python testPytorch.py
+> > ~~~
+> > {: .source}
+> > You should see an output which looks similar to:
+> > ~~~
+> > torch.version.cuda =  11.1
+> > torch._C._cuda_getCompiledVersion() =  11010
+> > 0 0:00:45.501856
+> > 1 0:00:00.000083
+> > 2 0:00:00.000066
+> > 3 0:00:00.000041
+> > 4 0:00:00.000041
+> > 5 0:00:00.000040
+> > 6 0:00:00.000038
+> > 7 0:00:00.000039
+> > 8 0:00:00.000041
+> > 9 0:00:00.000039
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
+> ## Other useful singularity images for CMS analyzers
+>  There are some additional, ready-made Singularity images which might be useful to know about. Those include:
+>  - [Pre-built coffea + scientific python environment](https://coffeateam.github.io/coffea/installation.html#pre-built-images)
+>    - Great if you want a ready to use environment with all of the most popular dependencies pre-installed
+>    - There are also Docker images available
+>  - [SONIC for Triton Inference Server](https://github.com/cms-sw/cmssw/blob/master/HeterogeneousCore/SonicTriton/README.md)
+>    - The image runs the Nvidia Triton inference server needed by SONIC
+>    - Can access local CPU and/or GPU resources
+>    - Can be run using Docker instead of Singularity if needed
+> 
+{: .testimonial}
 
 [tensorflow]: https://www.tensorflow.org/
 [pytorch]: https://pytorch.org/

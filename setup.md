@@ -22,8 +22,8 @@ docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cvmfs
 # The next two images are optional.
 # You will need 8+25 GB of space available to your Docker Engine.
-docker pull fnallpc/fnallpc-docker:pytorch-1.5-cuda10.1-cudnn7-runtime-singularity
-docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_2_21-slc7_amd64_gcc700:2020-09-22-ef834977
+docker pull fnallpc/fnallpc-docker:pytorch-1.8.1-cuda11.1-cudnn8-runtime-singularity
+docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_6_25-slc7_amd64_gcc700:latest
 ~~~
 
 Most of these images are relatively small (a few 100 MB at most). However, the last two images are almost 8 and 25 GB, respecitvely. These may take a good amount of time to download.
