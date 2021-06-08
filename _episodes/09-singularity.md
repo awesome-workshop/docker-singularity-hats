@@ -82,7 +82,7 @@ the directory to which the images are being pulled) to a
 place outside your `$HOME`/AFS space (here we use the `~/nobackup` directory):
 
 ~~~bash
-export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/Singularity"
+export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/.singularity/cache"
 singularity shell -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` -B /cvmfs docker://ubuntu:latest
 # try accessing cvmfs inside of the container
 source /cvmfs/cms.cern.ch/cmsset_default.sh
@@ -131,7 +131,7 @@ can be read by Singularity, the Singularity Image Format (SIF). This is a somewh
 In the next example, we are executing a script with singularity using the same image.
 
 ~~~bash
-export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/Singularity"
+export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/.singularity/cache"
 echo -e '#!/bin/bash\n\necho "Hello World!"\n' > hello_world.sh
 singularity exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` docker://ubuntu:latest bash hello_world.sh
 ~~~
@@ -152,7 +152,7 @@ You may have noticed that singularity caches both the Docker and SIF images so t
 Begin by building and storing the sandbox:
 
 ~~~bash
-export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/Singularity"
+export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/.singularity/cache"
 singularity build --sandbox ubuntu/ docker://ubuntu:latest
 ~~~
 {: .source}
@@ -179,7 +179,7 @@ INFO:    Build complete: ubuntu/
 Once we have the sandbox we can use that when starting the container. Run the same command as before, but use the sandbox rather than the Docker image:
 
 ~~~bash
-export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/Singularity"
+export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/.singularity/cache"
 singularity exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` ubuntu/ bash hello_world.sh
 ~~~
 {: .source}
@@ -209,7 +209,7 @@ export SINGULARITY_DOCKER_PASSWORD='mysecretpass'
 Knowing how to authenticate will be important when pulling images from GitLab. For example:
 
 ~~~bash
-export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/Singularity"
+export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/.singularity/cache"
 singularity shell -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` docker://gitlab-registry.cern.ch/[repo owner's username]/[repo name]:[tag] --docker-login
 ~~~
 {: .source}
@@ -247,7 +247,7 @@ A word of warning, these images are rather large (about 5 GB compressed). For th
 > > Log into one of the cmslpc GPU nodes and start a PyTorch container.
 > > ~~~bash
 > > ssh -Y <username>@cmslpcgpu<2-3>.fnal.gov
-> > export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/Singularity"
+> > export SINGULARITY_CACHEDIR="`readlink -f ~/nobackup/`/.singularity/cache"
 > > singularity shell --nv --bind $PWD:/run/user --bind `readlink -f ${HOME}/nobackup/` /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:pytorch-1.8.1-cuda11.1-cudnn8-runtime-singularity
 > > ~~~
 > > {: .source}
