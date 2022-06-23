@@ -80,17 +80,13 @@ docker rmi <IMAGE ID>
 > ><some numbers>: Pull complete
 > ><some numbers>: Pull complete
 > ><some numbers>: Pull complete
-> ><some numbers>: Pull complete
-> ><some numbers>: Pull complete
-> ><some numbers>: Pull complete
-> ><some numbers>: Pull complete
 > >Digest: sha256:<the relevant SHA hash>
 > >Status: Downloaded newer image for python:2.7-slim
 > >docker.io/library/python:2.7-slim
 > >
-> >REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-> >python              2.7-slim            d75b4eed9ada        14 hours ago        886MB
-> >python              3.7-slim            e440e2151380        23 hours ago        918MB
+> > REPOSITORY   TAG        IMAGE ID       CREATED       SIZE
+> > python       3.7-slim   <SHA>          2 weeks ago   <size>
+> > python       2.7-slim   <SHA>          2 years ago   <size>
 > >
 > >Untagged: python@sha256:<the relevant SHA hash>
 > >Deleted: sha256:<layer SHA hash>
@@ -98,14 +94,9 @@ docker rmi <IMAGE ID>
 > >Deleted: sha256:<layer SHA hash>
 > >Deleted: sha256:<layer SHA hash>
 > >Deleted: sha256:<layer SHA hash>
-> >Deleted: sha256:<layer SHA hash>
-> >Deleted: sha256:<layer SHA hash>
-> >Deleted: sha256:<layer SHA hash>
-> >Deleted: sha256:<layer SHA hash>
-> >Deleted: sha256:<layer SHA hash>
-> >
-> >REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-> >python              3.7-slim            e440e2151380        23 hours ago        918MB
+> > 
+> > REPOSITORY   TAG        IMAGE ID       CREATED       SIZE
+> > python       3.7-slim   <SHA>          2 weeks ago   <size>
 > > ~~~
 > > {: .output}
 > {: .solution}

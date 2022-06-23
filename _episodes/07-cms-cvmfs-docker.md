@@ -8,7 +8,7 @@ questions:
 - "How do I interact with this image?"
 objectives:
 - "Be able to startup the cms-cvmfs-docker image."
-- "be proficient in the use of the images more advanced features."
+- "Be proficient in the use of the images more advanced features."
 keypoints:
 - "The cms-cvmfs-docker image includes a lot of features missing from other CMS images."
 - "It has graphics support, CVMFS mount integrity support, and ID mapping support."
@@ -45,8 +45,8 @@ While the `--rm` is not strictly necessary, it is useful for this tutorial so th
 
 ~~~
 chmod: cannot access '/dev/fuse': No such file or directory
-MY_UID variable not specified, defaulting to cmsuser user id (1000)
-MY_GID variable not specified, defaulting to cmsuser user group id (1000)
+MY_UID variable not specified, defaulting to cmsusr user id (1000)
+MY_GID variable not specified, defaulting to cmsusr user group id (1000)
 Not mounting any filesystems.
 Not necessary to check the CVMFS mounts points.
 Unable to source /cvmfs/cms.cern.ch/cmsset_default.sh
@@ -66,8 +66,8 @@ docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.
 {: .source}
 
 ~~~
-MY_UID variable not specified, defaulting to cmsuser user id (1000)
-MY_GID variable not specified, defaulting to cmsuser user group id (1000)
+MY_UID variable not specified, defaulting to cmsusr user id (1000)
+MY_GID variable not specified, defaulting to cmsusr user group id (1000)
 Mounting the filesystem "cms.cern.ch" ... DONE
 Mounting the filesystem "oasis.opensciencegrid.org" ... DONE
 Checking CVMFS mounts ... DONE
@@ -82,10 +82,10 @@ The following options are available for the `CVMFS_MOUNTS` environment variable:
 2. It can take a space separated list of mount points (i.e. `"cms.cern.ch oasis.opensciencegrid.org"`) and it will only mount the areas specified.
 3. It can take the value `"all"` and all of the mount points specified above will be added to the container.
 
-Every time you start the container or exec into it as the user `cmsuser`, the mount integrity will be checked. If any of the mounts fail this probe, the system will attempt to remount the CVMFS points.
+Every time you start the container or exec into it as the user `cmsusr`, the mount integrity will be checked. If any of the mounts fail this probe, the system will attempt to remount the CVMFS points.
 
 ~~~bash
-docker exec -it --user=cmsuser <container_name> /bin/bash
+docker exec -it --user=cmsusr <container_name> /bin/bash
 ~~~
 {: .source}
 
@@ -103,10 +103,10 @@ The problem with getting a grid certificate is that it relies on private informa
 
 *Have I convinced you yet that we need a better solution?*
 
-A way to accomplish everything we want is to setup the `~/.globus/` directory on the host machine, complete with the `.pem` certificate files and the correct permissions. Then we can mount that directory into the container where it would normally belong. The next thing we need to do is make sure the UID and GID of the remote user (`cmsuser`) matches the UID and GID of the host user. All of this comes together into a command which looks like:
+A way to accomplish everything we want is to setup the `~/.globus/` directory on the host machine, complete with the `.pem` certificate files and the correct permissions. Then we can mount that directory into the container where it would normally belong. The next thing we need to do is make sure the UID and GID of the remote user (`cmsusr`) matches the UID and GID of the host user. All of this comes together into a command which looks like:
 
 ~~~bash
-docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsuser/.globus aperloff/cms-cvmfs-docker:latest
+docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsusr/.globus aperloff/cms-cvmfs-docker:latest
 ~~~
 {: .source}
 
@@ -136,7 +136,7 @@ Not only does that make sure people don't forget the typical options, but for so
 > > ## Solution
 > > 
 > > ~~~bash
-> > docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsuser/.globus aperloff/cms-cvmfs-docker:latest
+> > docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsusr/.globus aperloff/cms-cvmfs-docker:latest
 > > voms-proxy-init
 > > xrdfs root://cmseos.fnal.gov/ ls /store/user/hats/2020
 > > ~~~
@@ -176,7 +176,7 @@ docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:
 ~~~
 {: .source}
 
-**Note:** The X11 options are slightly different on Linux. You may need to use some or all of `-e DISPLAY=$DISPLAY -e XAUTHORITY=~/.Xauthority -v ~/.Xauthority:/home/cmsuser/.Xauthority -v /tmp/.X11-unix/:/tmp/.X11-unix`.
+**Note:** The X11 options are slightly different on Linux. You may need to use some or all of `-e DISPLAY=$DISPLAY -e XAUTHORITY=~/.Xauthority -v ~/.Xauthority:/home/cmsusr/.Xauthority -v /tmp/.X11-unix/:/tmp/.X11-unix`.
 
 > ## Special note for OSX users
 > 
@@ -213,8 +213,8 @@ docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:
 > > 
 > > ~~~
 > > chmod: cannot access '/dev/fuse': No such file or directory
-> > MY_UID variable not specified, defaulting to cmsuser user id (1000)
-> > MY_GID variable not specified, defaulting to cmsuser user group id (1000)
+> > MY_UID variable not specified, defaulting to cmsusr user id (1000)
+> > MY_GID variable not specified, defaulting to cmsusr user group id (1000)
 > > Not mounting any filesystems.
 > > Not necessary to check the CVMFS mounts points.
 > > Unable to source /cvmfs/cms.cern.ch/cmsset_default.sh
@@ -233,8 +233,8 @@ docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:
 > > 
 > > ~~~
 > > chmod: cannot access '/dev/fuse': No such file or directory
-> > MY_UID variable not specified, defaulting to cmsuser user id (1000)
-> > MY_GID variable not specified, defaulting to cmsuser user group id (1000)
+> > MY_UID variable not specified, defaulting to cmsusr user id (1000)
+> > MY_GID variable not specified, defaulting to cmsusr user group id (1000)
 > > Not mounting any filesystems.
 > > ~~~
 > > {: .output}
@@ -281,8 +281,8 @@ More information about this feature can be found in the images [GitHub README](h
 > > **Note:** Be patient, it may take a while before the `cmsShow` command shows any printouts or displays any graphics.
 > > 
 > > ~~~
-> > MY_UID variable not specified, defaulting to cmsuser user id (1000)
-> > MY_GID variable not specified, defaulting to cmsuser user group id (1000)
+> > MY_UID variable not specified, defaulting to cmsusr user id (1000)
+> > MY_GID variable not specified, defaulting to cmsusr user group id (1000)
 > > Mounting the filesystem "cms.cern.ch" ... DONE
 > > Mounting the filesystem "oasis.opensciencegrid.org" ... DONE
 > > Checking CVMFS mounts ... DONE
@@ -301,13 +301,13 @@ More information about this feature can be found in the images [GitHub README](h
 > > Would you like to enter a view-only password (y/n)? y
 > > Password:
 > > Verify:
-> > xauth:  file /home/cmsuser/.Xauthority does not exist
+> > xauth:  file /home/cmsusr/.Xauthority does not exist
 > > 
 > > New 'myvnc:1' desktop is a8416d9ebe9a:1
 > > 
-> > Creating default config /home/cmsuser/.vnc/config
-> > Starting applications specified in /home/cmsuser/.vnc/xstartup
-> > Log file is /home/cmsuser/.vnc/a8416d9ebe9a:1.log
+> > Creating default config /home/cmsusr/.vnc/config
+> > Starting applications specified in /home/cmsusr/.vnc/xstartup
+> > Log file is /home/cmsusr/.vnc/a8416d9ebe9a:1.log
 > > 
 > > [1] 451
 > > VNC connection points:
@@ -317,7 +317,7 @@ More information about this feature can be found in the images [GitHub README](h
 > > 
 > > To stop noVNC enter 'pkill -9 -P 451'
 > > To kill the vncserver enter 'vncserver -kill :1'
-> > [cmsuser@a8416d9ebe9a src]$ Warning: could not find self.pem
+> > [cmsusr@a8416d9ebe9a src]$ Warning: could not find self.pem
 > > Using local websockify at /usr/local/novnc-noVNC-0e9bdff/utils/websockify/run
 > > Starting webserver and WebSockets proxy on port 6080
 > > 
@@ -365,8 +365,8 @@ Many people prefer to use a [Jupyter Notebook][jupyter-org] environment for code
 > > {: .source}
 > > 
 > > ~~~
-> > MY_UID variable not specified, defaulting to cmsuser user id (1000)
-> > MY_GID variable not specified, defaulting to cmsuser user group id (1000)
+> > MY_UID variable not specified, defaulting to cmsusr user id (1000)
+> > MY_GID variable not specified, defaulting to cmsusr user group id (1000)
 > > Mounting the filesystem "cms.cern.ch" ... DONE
 > > Mounting the filesystem "oasis.opensciencegrid.org" ... DONE
 > > Mounting the filesystem "sft.cern.ch" ... DONE
@@ -393,10 +393,10 @@ Many people prefer to use a [Jupyter Notebook][jupyter-org] environment for code
 > > ~~~
 > > {: .output}
 > > 
-> > Next, we will open up a second view into the container so that we can interact with the container's file system on one and run the Jupyter server from the other. Make sure to use `docker exec` here, rather than `docker attach`, so that you can open up a new shell process. If you simply attach to the container your new prompt will be in the same shell process as the original one. Also, make sure to specify the same user as in the original shell. By default `docker exec` will enter the container as the `root` user rather than `cmsuser`.
+> > Next, we will open up a second view into the container so that we can interact with the container's file system on one and run the Jupyter server from the other. Make sure to use `docker exec` here, rather than `docker attach`, so that you can open up a new shell process. If you simply attach to the container your new prompt will be in the same shell process as the original one. Also, make sure to specify the same user as in the original shell. By default `docker exec` will enter the container as the `root` user rather than `cmsusr`.
 > > 
 > > ~~~bash
-> > docker exec -it --user=cmsuser <CONTAINER_NAME> /bin/bash
+> > docker exec -it --user=cmsusr <CONTAINER_NAME> /bin/bash
 > > ~~~
 > > {: .source}
 > > 
@@ -413,15 +413,15 @@ Many people prefer to use a [Jupyter Notebook][jupyter-org] environment for code
 > > ~~~
 > > /usr/bin/which: no jupyter in (/cvmfs/oasis.opensciencegrid.org/mis/osg-wn-client/3.4/3.4.54/el6-x86_64/usr/bin:/cvmfs/oasis.opensciencegrid.org/mis/osg-wn-client/3.4/3.4.54/el6-x86_64/usr/sbin:/cvmfs/cms.cern.ch/common:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin)
 > > /cvmfs/sft.cern.ch/lcg/views/LCG_96python3/x86_64-centos7-gcc8-opt/bin/jupyter
-> > [I 04:53:32.923 NotebookApp] Writing notebook server cookie secret to /home/cmsuser/.local/share/jupyter/runtime/notebook_cookie_secret
-> > [I 04:53:50.245 NotebookApp] Serving notebooks from local directory: /home/cmsuser
+> > [I 04:53:32.923 NotebookApp] Writing notebook server cookie secret to /home/cmsusr/.local/share/jupyter/runtime/notebook_cookie_secret
+> > [I 04:53:50.245 NotebookApp] Serving notebooks from local directory: /home/cmsusr
 > > [I 04:53:50.245 NotebookApp] The Jupyter Notebook is running at:
 > > [I 04:53:50.245 NotebookApp] http://(0f8888173907 or 127.0.0.1):8888/?token=27fe7fba0ba5211333328ca3fb57960d5a119843fc81eb32
 > > [I 04:53:50.245 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
 > > [C 04:53:50.322 NotebookApp]
 > > 
 > >     To access the notebook, open this file in a browser:
-> >         file:///home/cmsuser/.local/share/jupyter/runtime/nbserver-1256-open.html
+> >         file:///home/cmsusr/.local/share/jupyter/runtime/nbserver-1256-open.html
 > >     Or copy and paste one of these URLs:
 > >         http://(0f8888173907 or 127.0.0.1):8888/?token=27fe7fba0ba5211333328ca3fb57960d5a119843fc81eb32
 > > ~~~

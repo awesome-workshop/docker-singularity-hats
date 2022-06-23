@@ -41,7 +41,7 @@ You can run the containers as follows (pick either `bash` or `zsh`) when
 using the cmsopendata version published on [Docker Hub][docker-cmsopendata]:
 
 ~~~
-docker run --rm -it cmsopendata/cmssw:10_6_8_patch1 /bin/zsh
+docker run --rm -it cmscloud/standalone:cmssw_10_6_25-slc7_amd64_gcc700 /bin/zsh
 ~~~
 {: .language-bash}
 

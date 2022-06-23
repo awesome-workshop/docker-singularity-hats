@@ -45,8 +45,8 @@ docker pull sl
 ~~~
 Using default tag: latest
 latest: Pulling from library/sl
-32cc6c378ee5: Pull complete
-Digest: sha256:6cc5f47d16bd74ea8a2c3f68ead5ee893c032ccd75269d6d714cb34fc2153cb7
+be7dd8a3f6cc: Pull complete
+Digest: sha256:d20a8476d2369be2f3553382c9cce22f1aace2804cf52450b9dbacc93ae88012
 Status: Downloaded newer image for sl:latest
 docker.io/library/sl:latest
 ~~~
@@ -74,8 +74,8 @@ docker images sl
 {: .source}
 
 ~~~
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-sl                  latest              dddf32954161        3 weeks ago         177MB
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+sl           latest    33957a339e91   2 weeks ago   187MB
 ~~~
 {: .output}
 
@@ -87,8 +87,8 @@ docker images --filter=reference="sl"
 {: .source}
 
 ~~~
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-sl                  latest              dddf32954161        3 weeks ago         177MB
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+sl           latest    33957a339e91   2 weeks ago   187MB
 ~~~
 {: .output}
 
@@ -106,13 +106,13 @@ docker images sl
 
 ~~~
 7: Pulling from library/sl
-Digest: sha256:6cc5f47d16bd74ea8a2c3f68ead5ee893c032ccd75269d6d714cb34fc2153cb7
+Digest: sha256:d20a8476d2369be2f3553382c9cce22f1aace2804cf52450b9dbacc93ae88012
 Status: Downloaded newer image for sl:7
 docker.io/library/sl:7
 
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-sl                  7                   dddf32954161        3 weeks ago         177MB
-sl                  latest              dddf32954161        3 weeks ago         177MB
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+sl           7         33957a339e91   2 weeks ago   187MB
+sl           latest    33957a339e91   2 weeks ago   187MB
 ~~~
 {: .output}
 
@@ -130,19 +130,19 @@ sl                  latest              dddf32954161        3 weeks ago         
 > >
 > > ~~~
 > > 3.7-slim: Pulling from library/python
-d121f8d1c412: Pull complete
-ca572574cc82: Pull complete
-2bec6349c99d: Pull complete
-087ac0b72728: Pull complete
-6ca52d7c92b3: Pull complete
-Digest: sha256:e787b48ee93cad4d7157e13c01c109650ddad8f622fab6644ab5dd700eacae64
+42c077c10790: Pull complete
+f63e77b7563a: Pull complete
+dca49bd08fde: Pull complete
+51a05345c44d: Pull complete
+e69ebd661d90: Pull complete
+Digest: sha256:f61a4c6266a902630324fc10814b1109b3f91ac86dfb25fa3fa77496e62f96f5
 Status: Downloaded newer image for python:3.7-slim
 docker.io/library/python:3.7-slim
 > > 
-> > REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-> > python              3.7-slim            4d4a9832278b        2 weeks ago         112MB
-> > sl                  7                   dddf32954161        3 weeks ago         177MB
-> > sl                  latest              dddf32954161        3 weeks ago         177MB
+> > REPOSITORY   TAG        IMAGE ID       CREATED       SIZE
+> > python       3.7-slim   600bb8fe36b6   2 weeks ago   123MB
+> > sl           7          33957a339e91   2 weeks ago   187MB
+> > sl           latest     33957a339e91   2 weeks ago   187MB
 > > ~~~
 > > {: .output}
 > {: .solution}

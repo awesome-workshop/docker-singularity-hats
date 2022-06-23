@@ -47,28 +47,28 @@ ls -alh
 ~~~
 /
 total 56K
-drwxr-xr-x   1 root root 4.0K Sep 25 08:26 .
-drwxr-xr-x   1 root root 4.0K Sep 25 08:26 ..
--rwxr-xr-x   1 root root    0 Sep 25 08:26 .dockerenv
-lrwxrwxrwx   1 root root    7 Sep  1 13:06 bin -> usr/bin
+drwxr-xr-x   1 root root 4.0K Jun 22 15:47 .
+drwxr-xr-x   1 root root 4.0K Jun 22 15:47 ..
+-rwxr-xr-x   1 root root    0 Jun 22 15:47 .dockerenv
+lrwxrwxrwx   1 root root    7 Jun  1 15:03 bin -> usr/bin
 dr-xr-xr-x   2 root root 4.0K Apr 12  2018 boot
-drwxr-xr-x   5 root root  360 Sep 25 08:26 dev
-drwxr-xr-x   1 root root 4.0K Sep 25 08:26 etc
-drwxr-xr-x   2 root root 4.0K Sep  1 13:07 home
-lrwxrwxrwx   1 root root    7 Sep  1 13:06 lib -> usr/lib
-lrwxrwxrwx   1 root root    9 Sep  1 13:06 lib64 -> usr/lib64
+drwxr-xr-x   5 root root  360 Jun 22 15:47 dev
+drwxr-xr-x   1 root root 4.0K Jun 22 15:47 etc
+drwxr-xr-x   2 root root 4.0K Jun  1 15:03 home
+lrwxrwxrwx   1 root root    7 Jun  1 15:03 lib -> usr/lib
+lrwxrwxrwx   1 root root    9 Jun  1 15:03 lib64 -> usr/lib64
 drwxr-xr-x   2 root root 4.0K Apr 12  2018 media
 drwxr-xr-x   2 root root 4.0K Apr 12  2018 mnt
 drwxr-xr-x   2 root root 4.0K Apr 12  2018 opt
-dr-xr-xr-x 210 root root    0 Sep 25 08:26 proc
-dr-xr-x---   2 root root 4.0K Sep  1 13:07 root
-drwxr-xr-x  11 root root 4.0K Sep  1 13:07 run
-lrwxrwxrwx   1 root root    8 Sep  1 13:06 sbin -> usr/sbin
+dr-xr-xr-x 215 root root    0 Jun 22 15:47 proc
+dr-xr-x---   2 root root 4.0K Jun  1 15:04 root
+drwxr-xr-x  11 root root 4.0K Jun  1 15:04 run
+lrwxrwxrwx   1 root root    8 Jun  1 15:03 sbin -> usr/sbin
 drwxr-xr-x   2 root root 4.0K Apr 12  2018 srv
-dr-xr-xr-x  12 root root    0 Sep 23 04:12 sys
-drwxrwxrwt   2 root root 4.0K Sep  1 13:07 tmp
-drwxr-xr-x  13 root root 4.0K Sep  1 13:06 usr
-drwxr-xr-x  18 root root 4.0K Sep  1 13:07 var
+dr-xr-xr-x  13 root root    0 Jun 22 15:47 sys
+drwxrwxrwt   2 root root 4.0K Jun  1 15:04 tmp
+drwxr-xr-x  13 root root 4.0K Jun  1 15:03 usr
+drwxr-xr-x  18 root root 4.0K Jun  1 15:03 var
 ~~~
 {: .output}
 
@@ -93,20 +93,20 @@ cat /etc/os-release
 
 ~~~
 NAME="Scientific Linux"
-VERSION="7.8 (Nitrogen)"
+VERSION="7.9 (Nitrogen)"
 ID="scientific"
 ID_LIKE="rhel centos fedora"
-VERSION_ID="7.8"
-PRETTY_NAME="Scientific Linux 7.8 (Nitrogen)"
+VERSION_ID="7.9"
+PRETTY_NAME="Scientific Linux 7.9 (Nitrogen)"
 ANSI_COLOR="0;31"
-CPE_NAME="cpe:/o:scientificlinux:scientificlinux:7.8:GA"
+CPE_NAME="cpe:/o:scientificlinux:scientificlinux:7.9:GA"
 HOME_URL="http://www.scientificlinux.org//"
 BUG_REPORT_URL="mailto:scientific-linux-devel@listserv.fnal.gov"
 
 REDHAT_BUGZILLA_PRODUCT="Scientific Linux 7"
-REDHAT_BUGZILLA_PRODUCT_VERSION=7.8
+REDHAT_BUGZILLA_PRODUCT_VERSION=7.9
 REDHAT_SUPPORT_PRODUCT="Scientific Linux"
-REDHAT_SUPPORT_PRODUCT_VERSION="7.8"
+REDHAT_SUPPORT_PRODUCT_VERSION="7.9"
 ~~~
 {: .output}
 

@@ -87,8 +87,12 @@ There are many centrally produced images to suite the needs of CMSSW analyzers. 
 
 | Source | Image | Tags | Registry |
 | :--- | :--- | :--- | :--- |
-| cmssw | cc8 | amd64\*, aarch64\*, ppc64le* | [DockerHub](https://hub.docker.com/r/cmssw/cc8) |
-| cmssw | cc7 | amd64\*, aarch64\*, ppc64le\*, bootstrap | [DockerHub](https://hub.docker.com/r/cmssw/cc7) |
+| cmssw | alma8 | \<**see registry**\> | [DockerHub](https://hub.docker.com/r/cmssw/alma8) |
+| cmssw | ubi8  | \<**see registry**\> | [DockerHub](https://hub.docker.com/r/cmssw/ubi8) |
+| cmssw | cs9   | \<**see registry**\> | [DockerHub](https://hub.docker.com/r/cmssw/cs9) |
+| cmssw | cs8   | \<**see registry**\> | [DockerHub](https://hub.docker.com/r/cmssw/cs8) |
+| cmssw | cc8   | \<**see registry**\> | [DockerHub](https://hub.docker.com/r/cmssw/cc8) |
+| cmssw | cc7   | \<**see registry**\> | [DockerHub](https://hub.docker.com/r/cmssw/cc7) |
 | cmssw | slc7-installer | latest | [DockerHub](https://hub.docker.com/r/cmssw/slc7-installer) |
 | cmssw | slc6 | latest, amd64\* | [DockerHub](https://hub.docker.com/r/cmssw/slc6) |
 | cmssw | slc5 | latest | [DockerHub](https://hub.docker.com/r/cmssw/slc5) |
@@ -96,6 +100,7 @@ There are many centrally produced images to suite the needs of CMSSW analyzers. 
 | cms-cloud | cc7-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
 | cms-cloud | slc6-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
 | cms-cloud | slc5-cms | latest, \<**see registry**\> | [CERN GitLab][cms-cloud-gitlab] and [Docker Hub][cms-cloud-docker-hub] |
+| cmsopendata | 
 
 Note that the [cms-cloud][cms-containers] versions contain updated/additional packages which are useful for interactive development and have a nicer shell prompt.
 

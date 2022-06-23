@@ -15,7 +15,9 @@ Please see the current list of [issues][github-issues] for ideas for contributin
 repository. For making your contribution, we use the GitHub flow, which is
 nicely explained in the chapter [Contributing to a Project](http://git-scm.com/book/en/v2/GitHub-Contributing-to-a-Project) in Pro Git
 by Scott Chacon.
-Look for the tag ![good_first_issue](https://img.shields.io/badge/-good%20first%20issue-gold.svg). This indicates that the mantainers will welcome a pull request fixing this issue.  
+Look for the tag ![good_first_issue](https://img.shields.io/badge/-good%20first%20issue-gold.svg). This indicates that the mantainers will welcome a pull request fixing this issue.
+
+For a live preview of the pages while editing, follow [this guide](https://carpentries.github.io/lesson-example/setup.html#jekyll-setup-for-lesson-development). Short version, type `make serve` and enter `http://127.0.0.1:4000/` into the URL bar of your web browser.
 
 ## Maintainer(s)
 
