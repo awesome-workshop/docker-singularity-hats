@@ -119,4 +119,8 @@ podman push localhost/<name>:<tag> <username>/<name>:<tag>
 ~~~
 {: .source}
 
+# Further Customizing the Builds
+
+Although we expect that the default options for `containerize.sh` should be good enough for most users, there are still plenty of command line options which can be used to modify the default behavior. Additionally, if a user had the need to modify the image building commands, they might consider creating their own version of `/cvmfs/cms-lpc.opensciencegrid.org/FNALLPC/lpc-scripts/containerize/Dockerfile` and specify to use that file using the `-f` option. If additional directories need to be cached, then the user could make a copy of `/cvmfs/cms-lpc.opensciencegrid.org/FNALLPC/lpc-scripts/containerize/cache.json` and specify its location using the `-j` option.
+
 {% include links.md %}
