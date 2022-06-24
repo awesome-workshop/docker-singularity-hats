@@ -3,11 +3,12 @@ title: "Containerizing a CMSSW Working Area"
 teaching: 20
 exercises: 20
 questions:
-- ""
+- "How do I create an image which contains my CMSSW working area?"
+- "How can I mount CVMFS inside that image?"
 objectives:
-- ""
+- "Learn how to use the `containerize.sh` script to automate the process of creating OCI images from CMSSW directories."
 keypoints:
-- ""
+- "Use the `containerize.sh` script within the `FNALLPC/lpc-scripts` package in order to make an image containing an arbitrary CMSSW directory."
 ---
 
 Wouldn't it be great if you could create a container around your CMSSW work area and ship that off to a worker node or CI/CD system for use? Now you can! The [FNALLPC/lpc-scripts](https://github.com/FNALLPC/lpc-scripts/) repository contains a script for containerizing **any** CMSSW release. The script is called [`containerize.sh`](https://github.com/FNALLPC/lpc-scripts/blob/master/containerize/containerize.sh) and with just a few short commands it can have your CMSSW directory turned into an image in no time.
@@ -18,6 +19,8 @@ The LPC has specific nodes dedicated to building software packages and container
 
 * cmslpc-sl7-heavy.fnal.gov
 * cmslpc-c8-heavy01.fnal.gov
+
+While this process isn't strictly limited to the LPC computers, this is the environment where it was originally designed and tested.
 
 For this demonstration we'll want to setup a CMSSW release on the CMSLPC computers. It doesn't matter which version or which packages it includes. Here we'll use `CMSSW_10_6_21_patch1` and checkout the `JetMETCorrections/Modules` package. Don't forget to compile the code.
 
