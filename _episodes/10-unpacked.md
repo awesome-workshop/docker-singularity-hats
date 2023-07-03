@@ -8,12 +8,12 @@ questions:
 objectives:
 - "Understand how your images can be put on `unpacked.cern.ch`"
 keypoints:
-- "The `unpacked.cern.ch` CVMFS area provides a very fast way of distributing unpacked docker images for access via Singularity."
+- "The `unpacked.cern.ch` CVMFS area provides a very fast way of distributing unpacked docker images for access via Apptainer."
 - "Using this approach you can run versioned and reusable stages of your analysis."
 ---
-As was pointed out in the previous episode, Singularity uses *unpacked* Docker
+As was pointed out in the previous episode, Apptainer uses *unpacked* Docker
 images. These are by default unpacked into the current working directory,
-and the path can be changed by setting the `SINGULARITY_CACHEDIR` variable.
+and the path can be changed by setting the `APPTAINER_CACHEDIR` variable.
 
 The EP-SFT group provides a service that unpacks Docker images and makes them
 available via a dedicated CVMFS area. In the following, you will learn how to
@@ -95,15 +95,15 @@ to `/cvmfs/unpacked.cern.ch`.
 > 
 {: .callout}
 
-# Running Singularity using the `unpacked.cern.ch` area
+# Running Apptainer using the `unpacked.cern.ch` area
 
-Running Singularity using the `unpacked.cern.ch` area is done using the
+Running Apptainer using the `unpacked.cern.ch` area is done using the
 same commands as listed in the previous episode with the only difference
-that instead of providing a `docker://` image name to Singularity,
+that instead of providing a `docker://` image name to Apptainer,
 you provide the path in `/cvmfs/unpacked.cern.ch`:
 
 ~~~
-singularity exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` -B /cvmfs /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity /bin/bash
+apptainer exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` -B /cvmfs /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity /bin/bash
 ~~~
 {: .language-bash}
 
@@ -112,7 +112,7 @@ image pulling or unpacking.
 
 > ## Note
 >
-> Mind that you cannot change/write files into the container file system with Singularity. If your activity will create or modify files in the container you will need to write those files to EOS or a mounted directory.
+> Mind that you cannot change/write files into the container file system with Apptainer. If your activity will create or modify files in the container you will need to write those files to EOS or a mounted directory.
 >
 {: .callout}
 

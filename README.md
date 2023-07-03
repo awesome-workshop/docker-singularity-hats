@@ -1,4 +1,4 @@
-# Docker/Singularity HATS@LPC
+# Docker/Apptainer HATS@LPC
 
 This repository generates the corresponding lesson website from [The Carpentries](https://carpentries.org/) repertoire of lessons.
 

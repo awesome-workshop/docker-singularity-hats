@@ -52,13 +52,13 @@
 [docker-hub]: https://hub.docker.com/
 [unpacked-sync]: https://gitlab.cern.ch/unpacked/sync
 [unpacked-sync-recipe]: https://gitlab.cern.ch/unpacked/sync/blob/master/recipe.yaml
-[cms-singularity]: http://cms-sw.github.io/singularity.html
+[cms-apptainer]: http://cms-sw.github.io/singularity.html
 [batchdocs-containers]: https://batchdocs.web.cern.ch/containers/index.html
 [cms-containers]: https://gitlab.cern.ch/cms-cloud/cmssw-docker
 [cmssw-docker-service]: https://cmssw-docker.web.cern.ch/
 [cms-cloud-gitlab]: https://gitlab.cern.ch/cms-cloud/cmssw-docker/container_registry
 [cms-cloud-docker-hub]: https://hub.docker.com/u/cmscloud
-[singularity-docs]: https://sylabs.io/docs/
+[apptainer-docs]: https://apptainer.org/docs/
 [intro-docker-lesson]: https://awesome-workshop.github.io/intro-to-docker/
 [docker-cmsopendata]: https://hub.docker.com/u/cmsopendata
 [cms-opendata]: http://opendata.cern.ch/search?experiment=CMS
