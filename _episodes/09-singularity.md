@@ -43,6 +43,17 @@ are needed. These are not available to you on CMSLPC/LXPLUS (nor is the `docker`
 > <img align="center" src="../fig/DockerVsApptainer.png" alt="Docker vs. Apptainer" style="width:800px">
 {: .callout}
 
+> ## From Singularity to Apptainer
+> Apptainer is free, community-supported container software that is part of the Linux Foundation.
+> It was formerly known as Singularity, an open-source project started at Lawrence Berkeley National Laboratory.
+> The name Singularity is still used by an alternate, commercial version of the project by the company Sylabs.
+> More details about this change can be found [here](https://apptainer.org/news/community-announcement-20211130).
+>
+> The transition from Singularity to Apptainer is intended to be seamless.
+> The commmand `singularity` is now aliased to `apptainer`,
+> and `SINGULARITY` environment variables will be used if the corresponding `APPTAINER` environment variables are not defined.
+> More details on backwards compatibility and relevant changes can be found [here](https://apptainer.org/docs/user/latest/singularity_compatibility.html).
+{: .callout}
 
 # CMS documentation on Apptainer
 
