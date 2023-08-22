@@ -298,7 +298,7 @@ docker stop <CONTAINER ID> # or <NAME>
 ~~~
 {: .source}
 
-Stopping the container is a prerequisite for it's [removal]({{ page.root }}{% link _episodes/04-removal.md %}).
+Stopping the container is a prerequisite for its [removal]({{ page.root }}{% link _episodes/04-removal.md %}).
 
 [docker-docs-run]: https://docs.docker.com/engine/reference/run/
 [docker-docs-run-detached]: https://docs.docker.com/engine/reference/run/#detached-vs-foreground

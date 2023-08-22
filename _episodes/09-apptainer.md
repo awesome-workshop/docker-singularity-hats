@@ -322,6 +322,11 @@ A word of warning, these images are rather large (about 5 GB compressed). For th
 > 
 {: .testimonial}
 
+> ## Going deeper
+> 
+> Follow the [bonus lesson on advanced usage of Apptainer]({{ page.root }}{% link _episodes/19-apptainer-advanced.md %}) to learn more!
+{: .callout}
+
 [tensorflow]: https://www.tensorflow.org/
 [pytorch]: https://pytorch.org/
 [docker-hub-fnallpc-docker]: https://hub.docker.com/repository/docker/fnallpc/fnallpc-docker/tags?page=1
