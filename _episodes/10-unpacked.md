@@ -38,7 +38,7 @@ gitlab-registry.cern.ch  registry.hub.docker.com
 You can see the full directory structure of an image:
 
 ~~~
-ls /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity/
+ls /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity/
 ~~~
 {: .language-bash}
 
@@ -55,12 +55,12 @@ However, you don't get to know when the synchronization happened[^1], but there
 is an easy way to check by looking at the time-stamp of the image directory:
 
 ~~~
-ls -l /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity
+ls -l /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity
 ~~~
 {: .language-bash}
 
 ~~~
-lrwxrwxrwx. 1 cvmfs cvmfs 79 Aug 17 13:54 /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity -> ../../.flat/09/09421a19e97538a2fab2d782882101bc63cfe58b805d9122c9f60c5fb0989eb9
+lrwxrwxrwx 1 cvmfs cvmfs 79 Apr 17 19:12 /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity -> ../../.flat/7b/7b4794b494eaee76f7c03906b4b6c1174da8589568ef31d3f881bdf820549161
 ~~~
 {: .output}
 
@@ -75,7 +75,7 @@ simply have to add a line with your full image name (including registry)
 prepending `https://`:
 
 ~~~
-    - 'https://registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity'
+    - 'https://registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity'
 ~~~
 {: .language-yaml}
 
@@ -103,7 +103,7 @@ that instead of providing a `docker://` image name to Apptainer,
 you provide the path in `/cvmfs/unpacked.cern.ch`:
 
 ~~~
-apptainer exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` -B /cvmfs /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity /bin/bash
+apptainer exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` -B /cvmfs /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity /bin/bash
 ~~~
 {: .language-bash}
 

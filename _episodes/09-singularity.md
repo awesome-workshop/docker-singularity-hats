@@ -230,10 +230,16 @@ apptainer shell -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` docker://
 
 There are three GPUs available for use at the LPC. Rather than installing the myriad of packages necessary for machine learning on the bare-metal machines or manually synchronizing an Anaconda distribution to CVMFS (as done in the past), custom Apptainer images have been built for this purpose.
 
-Currently we have three images built and ready to use:
-1. [PyTorch][pytorch] 1.8.1 w/ CUDA 11.1 ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/PyTorch/Dockerfile))
-1. [TensorFlow][tensorflow] (GPU) 2.3.0 w/ development libraries ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/TensorFlow/Dockerfile))
-1. [TensorFlow][tensorflow] (GPU) 2.3.0 w/o development libraries ([Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/TensorFlow/Dockerfile))
+Currently we have several images built and ready to use:
+1. [PyTorch][pytorch]: (latest [Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/PyTorch/Dockerfile))
+    1. 1.8.1 w/ CUDA 11.1
+    1. 1.9.0 w/ CUDA 11.1
+    1. 1.13.0 w/ CUDA 11.6
+    1. 2.0.0 w/ CUDA 11.7
+1. [TensorFlow][tensorflow]: (latest [Dockerfile](https://github.com/FNALLPC/fnallpc-docker/blob/singularity-compatible/TensorFlow/Dockerfile))
+    1. 2.6.0 w/ GPU support
+    1. 2.10.0 w/ GPU support
+    1. 2.12.0 w/ GPU support
 
 Of course there are many more packages installed in these images than just PyTorch or TensorFlow. If you don't see the exact variety you need, tell us and we can probably make it in ~1 day. The images are stored on [Docker Hub][docker-hub-fnallpc-docker].
 
