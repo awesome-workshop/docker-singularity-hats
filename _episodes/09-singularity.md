@@ -38,10 +38,11 @@ You will also have noticed that in several cases *privileged* containers
 are needed. These are not available to you on CMSLPC/LXPLUS (nor is the `docker` command). On CMSLPC/LXPLUS, the tool to run containers is Apptainer. **The following commands will therefore all be run on CMSLPC** (`cmslpc-sl7.fnal.gov` or specifically).
 
 > ## Docker vs Apptainer
-> The [RECAST FAQ](https://recast-docs.web.cern.ch/recast-docs/faq/#q-how-are-docker-and-singularity-different) includes a brief intro to the important differences between docker and Apptainer. 
+> Apptainer does not required a privileged daemon process, so it is usable by non-`root` users on shared clusters, which are commonly employed in HEP.
+>
+> <img align="center" src="../fig/DockerVsApptainer.png" alt="Docker vs. Apptainer" style="width:800px">
 {: .callout}
 
-<img align="center" src="../fig/DockerVsApptainer.png" alt="Docker vs. Apptainer" style="width:800px">
 
 # CMS documentation on Apptainer
 
