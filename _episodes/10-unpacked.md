@@ -118,7 +118,7 @@ image pulling or unpacking.
 
 > ## Where to go from here?
 >
-> Knowing that you can build images on you local machine, Docker Hub, GitHub, or GitLab and have them synchronized to the `unpacked.cern.ch` area, you now have the power to run reusable and versioned stages of your analysis. While we have only run these containers locally, you can [run them on the batch system][batchdocs-containers], i.e. your full analysis in containers with effectively only advantages.
+> Knowing that you can build images on your local machine, Docker Hub, GitHub, or GitLab and have them synchronized to the `unpacked.cern.ch` area, you now have the power to run reusable and versioned stages of your analysis. While we have only run these containers locally, you can [run them on the batch system][batchdocs-containers], i.e. your full analysis in containers with effectively only advantages.
 >
 {: .testimonial}
 
