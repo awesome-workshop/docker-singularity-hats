@@ -23,7 +23,7 @@ For a live preview of the pages while editing, follow [this guide](https://carpe
 
 Current maintainers of this lesson are
 
-* [Alexx Perloff](mailto:alexx.stephen.perloff@cern.ch)
+* [Kevin Pedro](mailto:pedrok@fnal.gov)
 
 ## Authors
 
