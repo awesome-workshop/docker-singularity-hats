@@ -17,7 +17,7 @@ keypoints:
 
 # Introduction
 
-<img align="right" src="../fig/Apptainer-logo.png" alt="Apptainer Logo" style="width:250px">
+<img align="right" src="../fig/apptainer-logo.png" alt="Apptainer Logo" style="width:250px">
 
 One thing that has not been covered in detail is that containers do not
 necessarily have to be executed using Docker. While Docker is the most popular containerization tool these days, there are several so-called
