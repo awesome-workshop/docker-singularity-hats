@@ -94,7 +94,7 @@ the pitch.
 {% endif %}
 
 <p id="what">
-  <strong>What:</strong> An opinionated introduction to using <a href="//www.docker.com/">Docker</a> and <a href="//sylabs.io/docs/">Singularity</a> as software development tools for use with <a href="//github.com/cms-sw/cmssw">CMSSW</a>.
+  <strong>What:</strong> An opinionated introduction to using <a href="//www.docker.com/">Docker</a> and <a href="//sylabs.io/docs/">Apptainer</a> as software development tools for use with <a href="//github.com/cms-sw/cmssw">CMSSW</a>.
 </p>
 
 {% comment %}
@@ -266,7 +266,7 @@ during the workshop.
 >
 > Follow the setup instructions on the [setup page](setup.md).
 >
-> Have access to a computing cluster with [Singularity](https://singularity.lbl.gov/) installed on it. We will be using the CMSLPC cluster for this demo ([account request directions](http://www.uscms.org/uscms_at_work/computing/getstarted/index.shtml)).
+> Have access to a computing cluster with [Apptainer](https://apptainer.org/) installed on it. We will be using the CMSLPC cluster for this demo ([account request directions](http://www.uscms.org/uscms_at_work/computing/getstarted/index.shtml)).
 >
 > **(optional)** A VO registered grid certificate ([request directions](http://www.uscms.org/uscms_at_work/computing/getstarted/get_grid_cert.shtml)) setup on your local machine ([setup directions](https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookStartingGrid#ObtainingCert))
 >

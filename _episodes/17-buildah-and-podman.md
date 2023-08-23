@@ -38,7 +38,7 @@ This is the world of containers as you now know it ...
 		<path d="m328.348 67.227h63.073c3.047 0 5.521-2.461 5.538-5.507v-56.213c-.017-3.047-2.491-5.507-5.538-5.507h-63.073c-3.042 0-5.507 2.465-5.507 5.507v56.212c0 3.042 2.466 5.508 5.507 5.508"></path>
 		<path d="m416.312 228.909h63.073c3.047 0 5.521-2.46 5.538-5.507v-56.182c0-3.059-2.479-5.538-5.538-5.538h-63.073c-3.041 0-5.507 2.466-5.507 5.507v.031 56.181c0 3.042 2.466 5.508 5.507 5.508"></path>
 	</svg>
-	<img class="logo" src="http://sylabs.io/wp-content/uploads/2022/03/singularity-logo-round.svg" alt="Singularity" title="Singularity" style="float: right; height: 200px;">
+    <img align="right" src="../fig/Apptainer-logo.png" alt="Apptainer Logo" style="width:200px">
 </div>
 <br><br><br><br><br><br><br><br><br><br>
 

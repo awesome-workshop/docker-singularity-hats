@@ -28,7 +28,7 @@ Much like GitHub allows for web hosting and searching for code, the [Docker Hub]
 
 <img align="center" src="../fig/High-level-overview-of-Docker-architecture.png" alt="High-level overview of the Docker architecture" style="width:600px">
 
-While Docker Hub is maintained by Docker and is the defacto default registry for Docker images, it is not the only registry in existence. There are many registries, both private and public, in existence. For example, the GitLab software allows for a registry service to be setup alongside its Git and CI/CD management software. CERN's GitLab instance has such a registry available. See later episodes for more information on CERN's GitLab Docker image registry.
+While Docker Hub is maintained by Docker and is the defacto default registry for Docker images, it is not the only registry in existence. There are many registries, both private and public, in existence. For example, the GitLab software allows for a registry service to be setup alongside its Git and CI/CD management software. CERN's GitLab instance has such a registry available. See later episodes for more information on CERN's GitLab Docker image registry. GitHub also now provides [its own container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) called GHCR, which uses the namespace `https://ghcr.io`.
 
 # Pulling Images
 
@@ -37,7 +37,7 @@ To begin with we're going to [pull][docker-docs-pull] down the Docker image we'r
 ~~~bash
 docker pull sl
 
-#if you run into a premission error, use "sudo docker run ..." as a quick fix
+# if you run into a permission error, use "sudo docker run ..." as a quick fix
 # to fix this for the future, see https://docs.docker.com/install/linux/linux-postinstall/
 ~~~
 {: .source}

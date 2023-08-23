@@ -85,6 +85,12 @@ with the command line tools for them then most of Docker should seem somewhat na
 [docker-tutorial]: https://docs.docker.com/get-started
 [docker-containers]: https://www.docker.com/resources/what-container
 
+### Licensing
+
+The Docker Desktop application is free for personal use, but requires a [license](https://www.docker.com/pricing/faq/) for most organizational usage.
+
+However, the underlying Docker engine is fully open source ([Apache 2.0 license](https://docs.docker.com/engine/#licensing)) and free for all use.
+
 # Container Tool-chain Ecosystem
 
 Docker is one among many container platforms which are governed by the [Open Container Initiative (OCI)](https://opencontainers.org/). Started by Docker and others in 2015, the OCI fosters industry standards and innovation among the various groups developing container environments. The OCI defines an image specification (image-spec) and a runtime specification (runtime-spec). These specifications provide for common ways to download, unpack, and run images/containers, allowing for greater interoperability among the containerization tool-chains. This way we can choose to work with Docker, Podman, Buildah, OpenShift, and others.

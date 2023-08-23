@@ -8,12 +8,12 @@ questions:
 objectives:
 - "Understand how your images can be put on `unpacked.cern.ch`"
 keypoints:
-- "The `unpacked.cern.ch` CVMFS area provides a very fast way of distributing unpacked docker images for access via Singularity."
+- "The `unpacked.cern.ch` CVMFS area provides a very fast way of distributing unpacked docker images for access via Apptainer."
 - "Using this approach you can run versioned and reusable stages of your analysis."
 ---
-As was pointed out in the previous episode, Singularity uses *unpacked* Docker
+As was pointed out in the previous episode, Apptainer uses *unpacked* Docker
 images. These are by default unpacked into the current working directory,
-and the path can be changed by setting the `SINGULARITY_CACHEDIR` variable.
+and the path can be changed by setting the `APPTAINER_CACHEDIR` variable.
 
 The EP-SFT group provides a service that unpacks Docker images and makes them
 available via a dedicated CVMFS area. In the following, you will learn how to
@@ -38,7 +38,7 @@ gitlab-registry.cern.ch  registry.hub.docker.com
 You can see the full directory structure of an image:
 
 ~~~
-ls /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity/
+ls /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity/
 ~~~
 {: .language-bash}
 
@@ -55,12 +55,12 @@ However, you don't get to know when the synchronization happened[^1], but there
 is an easy way to check by looking at the time-stamp of the image directory:
 
 ~~~
-ls -l /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity
+ls -l /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity
 ~~~
 {: .language-bash}
 
 ~~~
-lrwxrwxrwx. 1 cvmfs cvmfs 79 Aug 17 13:54 /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity -> ../../.flat/09/09421a19e97538a2fab2d782882101bc63cfe58b805d9122c9f60c5fb0989eb9
+lrwxrwxrwx 1 cvmfs cvmfs 79 Apr 17 19:12 /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity -> ../../.flat/7b/7b4794b494eaee76f7c03906b4b6c1174da8589568ef31d3f881bdf820549161
 ~~~
 {: .output}
 
@@ -75,7 +75,7 @@ simply have to add a line with your full image name (including registry)
 prepending `https://`:
 
 ~~~
-    - 'https://registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity'
+    - 'https://registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity'
 ~~~
 {: .language-yaml}
 
@@ -95,15 +95,15 @@ to `/cvmfs/unpacked.cern.ch`.
 > 
 {: .callout}
 
-# Running Singularity using the `unpacked.cern.ch` area
+# Running Apptainer using the `unpacked.cern.ch` area
 
-Running Singularity using the `unpacked.cern.ch` area is done using the
+Running Apptainer using the `unpacked.cern.ch` area is done using the
 same commands as listed in the previous episode with the only difference
-that instead of providing a `docker://` image name to Singularity,
+that instead of providing a `docker://` image name to Apptainer,
 you provide the path in `/cvmfs/unpacked.cern.ch`:
 
 ~~~
-singularity exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` -B /cvmfs /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity /bin/bash
+apptainer exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` -B /cvmfs /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity /bin/bash
 ~~~
 {: .language-bash}
 
@@ -112,13 +112,13 @@ image pulling or unpacking.
 
 > ## Note
 >
-> Mind that you cannot change/write files into the container file system with Singularity. If your activity will create or modify files in the container you will need to write those files to EOS or a mounted directory.
+> Mind that you cannot change/write files into the container file system with Apptainer. If your activity will create or modify files in the container you will need to write those files to EOS or a mounted directory.
 >
 {: .callout}
 
 > ## Where to go from here?
 >
-> Knowing that you can build images on you local machine, Docker Hub, GitHub, or GitLab and have them synchronized to the `unpacked.cern.ch` area, you now have the power to run reusable and versioned stages of your analysis. While we have only run these containers locally, you can [run them on the batch system][batchdocs-containers], i.e. your full analysis in containers with effectively only advantages.
+> Knowing that you can build images on your local machine, Docker Hub, GitHub, or GitLab and have them synchronized to the `unpacked.cern.ch` area, you now have the power to run reusable and versioned stages of your analysis. While we have only run these containers locally, you can [run them on the batch system][batchdocs-containers], i.e. your full analysis in containers with effectively only advantages.
 >
 {: .testimonial}
 
