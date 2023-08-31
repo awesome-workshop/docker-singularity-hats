@@ -87,9 +87,10 @@ with the command line tools for them then most of Docker should seem somewhat na
 
 ### Licensing
 
-The Docker Desktop application is free for personal use, but requires a [license](https://www.docker.com/pricing/faq/) for most organizational usage.
+The Docker engine license can be found [here](https://docs.docker.com/engine/#licensing).
 
-However, the underlying Docker engine is fully open source ([Apache 2.0 license](https://docs.docker.com/engine/#licensing)) and free for all use.
+The Docker Desktop application has a separate license, which can be found [here](https://www.docker.com/legal/docker-subscription-service-agreement/);
+see also the [FAQ](https://www.docker.com/pricing/faq/).
 
 # Container Tool-chain Ecosystem
 
