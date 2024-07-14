@@ -8,7 +8,7 @@ title: Setup
 > We strongly urge you not to download or update Docker Desktop while on the Fermilab network. This includes while signed onto the VPN. Do this before you come to the tutorial. It's okay to use Docker Desktop on site, just not to download it.
 {: .caution}
 
-To install Docker Community Edition on your Linux, Mac, or Windows 10 (Pro, Enterprise, and Education) machine follow the [instructions in the Docker docs](https://docs.docker.com/get-docker/). If you are using Windows 10 Home you will need to follow [this Docker doc](https://docs.docker.com/docker-for-windows/install-windows-home/). Fair warning, the Windows 10 Home installation is more involved and requires Windows Subsystem for Linux 2 (WSL2), among other intricacies.
+To install Docker Community Edition on your Linux, Mac, Windows 10 (Pro, Enterprise, and Education), or Windows 11 machine, follow the [instructions in the Docker docs](https://docs.docker.com/get-docker/). If you are using Windows 10 Home you will need to follow [this Docker doc](https://docs.docker.com/docker-for-windows/install-windows-home/). Fair warning, the Windows 10 Home installation is more involved and requires Windows Subsystem for Linux 2 (WSL2), among other intricacies.
 
 ## Docker Hub
 
@@ -26,7 +26,7 @@ docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cvmfs
 # The next two images are optional.
 # You will need 8+25 GB of space available to your Docker Engine.
-docker pull fnallpc/fnallpc-docker:pytorch-1.8.1-cuda11.1-cudnn8-runtime-singularity
+docker pull fnallpc/fnallpc-docker:pytorch-1.9.0-cuda11.1-cudnn8-runtime-singularity
 docker pull cmscloud/standalone:cmssw_10_6_25-slc7_amd64_gcc700
 # The same image as the last one is available from CERN's GitLab registry
 # docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cmssw_10_6_25-slc7_amd64_gcc700:latest
