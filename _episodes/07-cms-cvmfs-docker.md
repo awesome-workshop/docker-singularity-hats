@@ -14,7 +14,7 @@ keypoints:
 - "It has graphics support, CVMFS mount integrity support, and ID mapping support."
 - "It is Fermilab security compliant."
 ---
-**At the moment, this is the method I recommend!** This image has been developed for the most demanding of CMSSW use cases. It can do everything the previous containers do and then some. It's also been configured to comply with the Fermilab security policies, at least pre-COVID-19 (I haven't tested this lately). It is based on the Docker official `sl:7` image. The most up-to-date and comprehensive documentation can be found in the projects [GitHub README](https://github.com/aperloff/cms-cvmfs-docker/blob/master/README.md). The images themselves are built an stored on [Docker Hub](https://hub.docker.com/repository/docker/aperloff/cms-cvmfs-docker).
+**At the moment, this is the method I recommend!** This image has been developed for the most demanding of CMSSW use cases. It can do everything the previous containers do and then some. It's also been configured to comply with the Fermilab security policies, at least pre-COVID-19 (I haven't tested this lately). It is based on the Docker official `sl:7` image. The most up-to-date and comprehensive documentation can be found in the projects [GitHub README](https://github.com/FNALLPC/cms-cvmfs-docker/blob/master/README.md). The images themselves are built an stored on [Docker Hub](https://hub.docker.com/repository/docker/fnallpc/cms-cvmfs-docker).
 
 The benefits of this image include:
 1. X11 and VNC support.
@@ -37,7 +37,7 @@ The benefits of this image include:
 
 Like most Docker containers, the basic run command for this container is:
 ~~~bash
-docker run --rm -it aperloff/cms-cvmfs-docker:latest
+docker run --rm -it fnallpc/cms-cvmfs-docker:latest
 ~~~
 {: .source}
 
@@ -61,7 +61,7 @@ Many of these warnings are simply because we haven't yet given the container the
 Next we will give the container the ability to mount CVMFS:
 
 ~~~bash
-docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" aperloff/cms-cvmfs-docker:latest
+docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" fnallpc/cms-cvmfs-docker:latest
 ~~~
 {: .source}
 
@@ -106,7 +106,7 @@ The problem with getting a grid certificate is that it relies on private informa
 A way to accomplish everything we want is to setup the `~/.globus/` directory on the host machine, complete with the `.pem` certificate files and the correct permissions. Then we can mount that directory into the container where it would normally belong. The next thing we need to do is make sure the UID and GID of the remote user (`cmsusr`) matches the UID and GID of the host user. All of this comes together into a command which looks like:
 
 ~~~bash
-docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsusr/.globus aperloff/cms-cvmfs-docker:latest
+docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsusr/.globus fnallpc/cms-cvmfs-docker:latest
 ~~~
 {: .source}
 
@@ -136,7 +136,7 @@ Not only does that make sure people don't forget the typical options, but for so
 > > ## Solution
 > > 
 > > ~~~bash
-> > docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsusr/.globus aperloff/cms-cvmfs-docker:latest
+> > docker run --rm -it --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" -e MY_UID=$(id -u) -e MY_GID=$(id -g) -v ~/.globus:/home/cmsusr/.globus fnallpc/cms-cvmfs-docker:latest
 > > voms-proxy-init
 > > xrdfs root://cmseos.fnal.gov/ ls /store/user/hats/2020
 > > ~~~
@@ -172,7 +172,7 @@ It's often useful to display graphical windows which originate from within the c
 If you would like to display X11 windows on the host machine which originate inside the container you will need to add the option `-e DISPLAY=host.docker.internal:0`, which will give you a command like:
 
 ~~~bash
-docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:latest
+docker run --rm -it -e DISPLAY=host.docker.internal:0 fnallpc/cms-cvmfs-docker:latest
 ~~~
 {: .source}
 
@@ -204,7 +204,7 @@ docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:
 > > ## Solution
 > > 
 > > ~~~bash
-> > docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:latest
+> > docker run --rm -it -e DISPLAY=host.docker.internal:0 fnallpc/cms-cvmfs-docker:latest
 > > xeyes
 > > ~~~
 > > {: .source}
@@ -227,7 +227,7 @@ docker run --rm -it -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:
 > > **Trick:** If all you want to do is start `xeyes` and you don't need to access the `bash` prompt, then send the command when starting the container. As soon as `xeyes` stops, the container will exit.
 > > 
 > > ~~~bash
-> > docker run --rm -e DISPLAY=host.docker.internal:0 aperloff/cms-cvmfs-docker:latest -c xeyes
+> > docker run --rm -e DISPLAY=host.docker.internal:0 fnallpc/cms-cvmfs-docker:latest -c xeyes
 > > ~~~
 > > {: .source}
 > > 
@@ -261,7 +261,7 @@ You will now have two or three with which to connect:
 > 
 > You will need to go to *System Preferences* -> *Sharing* and turn on *Screen Sharing* if using a VNC viewer, built-in or otherwise. You will not need to do this if using the browser.
 
-More information about this feature can be found in the images [GitHub README](https://github.com/aperloff/cms-cvmfs-docker#starting-and-connecting-to-a-vnc-server).
+More information about this feature can be found in the images [GitHub README](https://github.com/FNALLPC/cms-cvmfs-docker#starting-and-connecting-to-a-vnc-server).
 
 > ## Exercise: Use cmsShow over VNC
 > See if you can start a container and use cmsShow through VNC, not X11.
@@ -269,7 +269,7 @@ More information about this feature can be found in the images [GitHub README](h
 > > ## Solution
 > > 
 > > ~~~bash
-> > docker run --rm -it -P -p 5901:5901 -p 6080:6080 --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" aperloff/cms-cvmfs-docker:latest
+> > docker run --rm -it -P -p 5901:5901 -p 6080:6080 --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org" fnallpc/cms-cvmfs-docker:latest
 > > cmsrel CMSSW_10_2_21
 > > cd CMSSW_10_2_21/src/
 > > cmsenv
@@ -360,7 +360,7 @@ Many people prefer to use a [Jupyter Notebook][jupyter-org] environment for code
 > > Begin by opening up a container:
 > > 
 > > ~~~bash
-> > docker run --rm -it -p 8888:8888 --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org sft.cern.ch" aperloff/cms-cvmfs-docker:latest
+> > docker run --rm -it -p 8888:8888 --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch oasis.opensciencegrid.org sft.cern.ch" fnallpc/cms-cvmfs-docker:latest
 > > ~~~
 > > {: .source}
 > > 
@@ -389,7 +389,7 @@ Many people prefer to use a [Jupyter Notebook][jupyter-org] environment for code
 > > 
 > > ~~~
 > > CONTAINER ID        IMAGE                              COMMAND             CREATED             STATUS              PORTS                      NAMES
-> > <CONTAINER_ID>        aperloff/cms-cvmfs-docker:latest   "/run.sh"           N minutes ago       Up N minutes        127.0.0.1:8888->8888/tcp   <CONTAINER_NAME>
+> > <CONTAINER_ID>        fnallpc/cms-cvmfs-docker:latest   "/run.sh"           N minutes ago       Up N minutes        127.0.0.1:8888->8888/tcp   <CONTAINER_NAME>
 > > ~~~
 > > {: .output}
 > > 
@@ -441,7 +441,7 @@ Many people prefer to use a [Jupyter Notebook][jupyter-org] environment for code
 > To obtain the bash function, clone the GitHub repository and source the `.cms-cvmfs-docker` script:
 > 
 > ~~~bash
-> git clone https://github.com/aperloff/cms-cvmfs-docker.git
+> git clone https://github.com/FNALLPC/cms-cvmfs-docker.git
 > source cms-cvmfs-docker/.cms-cvmfs-docker
 > ~~~
 > {: .source}

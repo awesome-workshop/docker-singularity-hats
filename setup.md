@@ -21,7 +21,7 @@ Once you've got docker up and running, do the following docker image pulls in ad
 ~~~bash
 docker pull sl:latest
 docker pull sl:7
-docker pull aperloff/cms-cvmfs-docker:latest
+docker pull fnallpc/cms-cvmfs-docker:latest
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms
 docker pull gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cvmfs
 # The next two images are optional.

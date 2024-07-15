@@ -25,7 +25,7 @@ keypoints:
 > >  -v $PWD:/home/cmsusr/workdir \
 > >  -v $HOME/.ssh:/home/cmsusr/.ssh \
 > >  -v $HOME/.gitconfig:/home/cmsusr/.gitconfig \
-> >  aperloff/cms-cvmfs-docker:latest
+> >  fnallpc/cms-cvmfs-docker:latest
 > >~~~
 > >{: .source}
 > {: .solution}

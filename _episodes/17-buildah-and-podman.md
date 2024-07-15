@@ -220,10 +220,10 @@ This time you should find that you are the `sync` user within the container, wit
 
 ## Rootless Podman With a Built-in Non-`root` User
 
-So far we've examined what happens when we run as root inside the container and as a non-privileged user in the container created at runtime. Next we will see what happens when we use a container which was built with an existing non-privileged user without sudo capabilities. For this example we will be using the `aperloff/cms-cvmfs-docker:latest` image. By default this image runs as `cmsusr` inside of the container.
+So far we've examined what happens when we run as root inside the container and as a non-privileged user in the container created at runtime. Next we will see what happens when we use a container which was built with an existing non-privileged user without sudo capabilities. For this example we will be using the `fnallpc/cms-cvmfs-docker:latest` image. By default this image runs as `cmsusr` inside of the container.
 
 ~~~bash
-podman --root /tmp/`whoami`/ --runroot /tmp/`whoami`/ run --rm -it --name useroutside-userinside docker://docker.io/aperloff/cms-cvmfs-docker:latest
+podman --root /tmp/`whoami`/ --runroot /tmp/`whoami`/ run --rm -it --name useroutside-userinside docker://docker.io/fnallpc/cms-cvmfs-docker:latest
 ~~~
 {: .source}
 

@@ -20,7 +20,7 @@ First an foremost, the CVMFS mount is not typically available during the build s
 
 The first method relies on the ability of docker to save the state of a running container as an image. The proceedure, in a nutshell, looks like:
 
-1. Spin up a container using `aperloff/cms-cvmfs-docker:latest`.
+1. Spin up a container using `fnallpc/cms-cvmfs-docker:latest`.
 2. wget, or download some other way, a setup script which specified all of the commands you would like to perform during the build. Typically these are the actions you would perform from within a Dockerfile.
 3. Run the setup script to install/setup the environment/software.
 4. (optional) clear the CVMFS cache.
@@ -31,13 +31,13 @@ A set of example commands would look like:
 
 ~~~bash
 # Run the container and perform the setup actions
-docker run -t -P --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch" --name myimage --entrypoint "/bin/bash" aperloff/cms-cvmfs-docker:latest -c "/run.sh -c \"wget <url to setup script>/setup.sh && chmod +x setup.sh && ./setup.sh\" && cvmfs_config wipecache"
+docker run -t -P --device /dev/fuse --cap-add SYS_ADMIN -e CVMFS_MOUNTS="cms.cern.ch" --name myimage --entrypoint "/bin/bash" fnallpc/cms-cvmfs-docker:latest -c "/run.sh -c \"wget <url to setup script>/setup.sh && chmod +x setup.sh && ./setup.sh\" && cvmfs_config wipecache"
 # Create an image from the state of the container
-docker commit -c 'ENTRYPOINT ["/run.sh"]' -c 'CMD []' myimage aperloff/myimage:latest
+docker commit -c 'ENTRYPOINT ["/run.sh"]' -c 'CMD []' myimage [user]/myimage:latest
 # Login to a container registry (i.e. DockerHub) if you intend to push an image
 echo "<DockerHub password>" | docker login -u <DockerHub username> --password-stdin
 # Push the image to a container registry (i.e. DockerHub)
-docker push aperloff/myimage:latest
+docker push [user]/myimage:latest
 ~~~
 {: .source}
 
@@ -56,7 +56,7 @@ This will make sure you're using the latest release of the version 1 syntax (i.e
 ~~~
 # syntax=docker/dockerfile:1
 
-FROM aperloff/cms-cvmfs-docker:latest
+FROM fnallpc/cms-cvmfs-docker:latest
 
 USER root
 
