@@ -103,7 +103,7 @@ that instead of providing a `docker://` image name to Apptainer,
 you provide the path in `/cvmfs/unpacked.cern.ch`:
 
 ~~~
-apptainer exec -B `readlink $HOME` -B `readlink -f ${HOME}/nobackup/` -B /cvmfs /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity /bin/bash
+apptainer exec --nv -B `readlink $HOME` -B /uscms_data -B /cvmfs /cvmfs/unpacked.cern.ch/registry.hub.docker.com/fnallpc/fnallpc-docker:tensorflow-2.12.0-gpu-singularity /bin/bash
 ~~~
 {: .language-bash}
 
