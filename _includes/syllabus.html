@@ -27,7 +27,7 @@
   {% endfor %}
   {% assign current = site.start_time %}
 
-  <h3 id="label">Asynchronous (do before we meet)</h3>
+  <h3 id="label">Introductory topics</h3><a name="async"></a>
   <table class="table table-striped">
   <tr>
     {% if multiday %}<td class="col-md-1"></td>{% endif %}
@@ -94,7 +94,7 @@
   </table>
 
   {% assign current = site.start_time %}
-  <h3 id="label">Synchronous (lessons to be covered live)</h3>
+  <h3 id="label">Containers for CMS</h3><a name="sync"></a>
   <table class="table table-striped">
   {% for lesson_episode in lesson_episodes limit:n_synchronous_lessons offset:n_asynchronous_lessons %}
     {% if site.episode_order %}
@@ -154,7 +154,7 @@
 
   {% assign current = site.start_time %}
   {% assign first_bonus_lesson = n_lessons | minus: n_bonus_lessons %}
-  <h3 id="label">Bonus (time permitting)</h3>
+  <h3 id="label">Bonus (time permitting)</h3><a name="bonus"></a>
   <table class="table table-striped">
   {% for lesson_episode in lesson_episodes limit:1000 offset:first_bonus_lesson %}
     {% if site.episode_order %}
